@@ -1,9 +1,5 @@
 {
      "detail" : {
-         "_id" : {
-             "index" : "not_analyzed",
-             "path" : "tutorId"
-         },
          "_source" : {
              "enabled" : "true"
          },
@@ -12,7 +8,7 @@
          },
          "properties" : {
          	"tutorId"						: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
-			"tutorName"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
+			"tutorName"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
 			"profileImagePath"				: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
 			"bannerImagePath"				: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
 			"subscribeCount"				: {"type" : "integer", "store" : "yes", "index" : "not_analyzed"},

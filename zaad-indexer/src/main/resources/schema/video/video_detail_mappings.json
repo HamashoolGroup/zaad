@@ -1,9 +1,5 @@
 {
      "detail" : {
-         "_id" : {
-             "index" : "not_analyzed",
-             "path" : "zaadId"
-         },
          "_source" : {
              "enabled" : "true"
          },
@@ -16,24 +12,24 @@
          	"index"							: {"type" : "integer", "store" : "yes", "index" : "not_analyzed"},
          	"tutorId"						: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
          	"playlistId"					: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
-			"title"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
-			"desc"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
+			"title"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
+			"desc"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
 			"creationDate"					: {"type" : "date",   "store" : "yes", "index" : "not_analyzed"},
 			"viewCount"						: {"type" : "integer", "store" : "yes", "index" : "not_analyzed"},
 			"likeCount"						: {"type" : "integer", "store" : "yes", "index" : "not_analyzed"},
 			"commentCount"					: {"type" : "integer", "store" : "yes", "index" : "not_analyzed"},
 			"popularity"					: {"type" : "double", "store" : "yes", "index" : "not_analyzed"},
 			"recommendarity"				: {"type" : "double", "store" : "yes", "index" : "not_analyzed"},
-			"categories"					: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-			"sections"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-			"tests"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-			"tags"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-			"continentals"					: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-			"levels"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+			"categories"					: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+			"sections"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+			"tests"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+			"tags"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+			"continentals"					: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+			"levels"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
 			"tutor"							: {"type" : "nested",
 											  	"properties": {
 											  		"tutorId"						: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
-													"tutorName"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
+													"tutorName"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
 													"profileImagePath"				: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
 													"bannerImagePath"				: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
 													"subscribeCount"				: {"type" : "integer", "store" : "yes", "index" : "not_analyzed"},
@@ -45,15 +41,15 @@
 												"properties": {
 													"playlistId"					: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
 										         	"tutorId"						: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
-													"title"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
-													"desc"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
+													"title"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
+													"desc"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
 													"viewCount"						: {"type" : "integer", "store" : "yes", "index" : "not_analyzed"},
-													"categories"					: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-													"sections"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-													"tests"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-													"tags"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-													"continentals"					: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
-													"levels"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "index_analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"}
+													"categories"					: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+													"sections"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+													"tests"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+													"tags"							: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+													"continentals"					: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"},
+													"levels"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_keyword_analyzer", "search_analyzer": "zaad_keyword_analyzer"}
 												}
 											  }
          }
