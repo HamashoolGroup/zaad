@@ -1,0 +1,8 @@
+7
+WARNING! New security hole found in Cloudfogger - your files may not be safe!
+Published on Oct 21, 2013
+**** Please click "read more". There is an important note at the bottom of this description! **** ****************************************?****************************************?******************** I found a SERIOUS privacy issue with the encryption program Cloudfogger when it's used with the online cloud storage service at Copy.com. Cloudfogger says it encrypts your files before leaving your computer, but this video shows that it doesn't. It is allowing an unencrypted version of the same file to leave my computer. In fact, that file is being uploaded together with the encrypted version to the Copy.com site! Be careful when using an encryption method of this type. You could try CryptSync or BoxCryptor but I think that right now, your best bet is probably TrueCrypt - even if it's more hassle - to keep your files safe from prying eyes. ****************************************?****************************************?******************** ***** Important!!! At 7:28 in the video, I made a mistake. Please read the following. ***** I tested it again to make sure, but this time I COULD see both files in the folder of my 2nd computer! So right now, I have only ONE file in the original folder on my laptop (encrypted) and I have TWO files in my other computer's desktop folder (one encrypted and the other is not)! Interestingly, that 2nd file is NOT being copied back to my first computer!???
+4,784
+26
+7
+0

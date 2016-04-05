@@ -1,0 +1,8 @@
+18
+Goal Line Technology Used at Confederations Cup
+Published on Jul 19, 2013
+From VOA Learning English, this is the Technology Report. Many sports competitions use cameras to help officials make the right call. Now goal line technology is being used in international soccer. The move to goal line technology follows international pressure on football's governing body, FIFA, after a missed call in the 2010 World Cup. Video replays of a game clearly showed that England's Frank Lampard had scored a goal against Germany. However, that goal was denied because neither the referee nor the linesman saw the ball cross the goal line. The incident caused such an outcry that FIFA approved the development of goal line technology. That technology was used at the Confederations Cup in Brazil in June. Bjorn Linder is the chairman of GoalControl, the German-based company that won the goal line technology contract for this year's Confederations Cup. His team spent weeks in Brazil before the games as part of the FIFA certification process. He says the system has 14 cameras connected to a computer. Computers track the path of the ball in real time and reconstruct the play. The system sends a signal to the referees through their watches when it finds that the ball has crossed the goal line. Electronic eyes on the goal line may settle arguments, but the data is still only a reconstruction of reality. GoalControl claims an accuracy of plus or minus five millimeters. This is well below FIFA's minimum requirement of plus or minus three centimeters. Goal line technology may become a central part of the sport. But it is still the referee -- not the computer -- that makes the final call. For VOA Learning English, I'm Mario Ritter.
+22,498
+34
+5
+0

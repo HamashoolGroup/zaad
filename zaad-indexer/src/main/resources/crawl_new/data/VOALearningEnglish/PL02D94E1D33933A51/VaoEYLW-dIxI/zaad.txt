@@ -1,0 +1,8 @@
+14
+Computer in China Tops List of World's Most Powerful
+Published on Aug 26, 2013
+From VOA Learning English, this is the Technology Report. China's Tianhe-2 supercomputer has been rated number one on the Top500, a list of the world's most powerful computers. Experts measured the supercomputer's performance at 33.86 petaflops, or quadrillions of operations per second. China's National University of Defense Technology developed the supercomputer, which runs twice as fast as the number two rated Titan supercomputer. That machine belongs to the U.S. government's Oakridge National Laboratory in the outhern state of Tennessee. Tianhe-2 and Titan are part of the race to make supercomputers faster and more powerful. So what is a supercomputer? A basic personal computer has one microchip at the center of its operations. This Central Processing Unit, or CPU, carries out a set of commands as part of a predesigned program.The first supercomputers had a few more CPUs. The number grew as microprocessors became cheaper and faster. Andrew Grimshaw is a computer science professor at the University of Virginia. He says many supercomputers today are called parallel machines. Instead of one CPU, they have thousands. These parallel machines are made up of many individual computers called nodes. They are positioned in one block. They use a lot of power, create a lot of heat, and require huge cooling systems. They also use programs different from the ones used by ordinary computers. Professor Grimshaw says anyone with enough resources can build a supercomputer to solve problems that require millions of mathematical calculations. For VOA Learning English, I'm Carolyn
+33,238
+63
+5
+0

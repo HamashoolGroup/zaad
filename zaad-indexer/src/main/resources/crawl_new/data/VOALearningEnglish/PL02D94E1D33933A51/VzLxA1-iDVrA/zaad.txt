@@ -1,0 +1,8 @@
+20
+Identifying a 'STEMI' Heart Attack With an iPhone App
+Published on Jul 2, 2013
+http://learningenglish.voanews.com | http://youtube.com/voalearningenglish From VOA Learning English, this is the Technology Report. Researchers have developed an experimental iPhone application, or app, that they say can improve the chances of survival from a heart attack. The iPhone app is designed to identify patients suffering from a kind of heart attack known as a STEMI, or ST-elevation myocardial infarction. In a STEMI, blood flow to the heart is stopped because of a blockage in a coronary artery. Unlike other kinds of heart attacks, STEMIs show up very clearly on an electrocardiogram or ECG. Doctors use ECGs to measure electrical activity in the heart. The experimental iPhone app should help rescuers reacting to a possible medical emergency. They can perform an ECG and then take a picture of the test results with the camera on the telephone. They can then send that information ahead to hospital emergency room doctors. The iPhone app is the work of David Burt and his students at the University of Virginia in Charlottesville. He says the app can help save lives by preparing doctors for the arrival of the STEMI patient as early as possible. He says doctors can mobilize their system so that they can perform a catheterization to unblock the artery or some other treatment. David Burt and his team tested the app 1,500 times over three American cellular telephone networks in a populated area. He said the app was successful within less than 10 seconds about 94 percent of the time. The developers are now testing the iPhone app in rural areas, where cell phone reception is more problematic than in cities. For VOA Learning English, I'm Alex Villarreal.
+19,887
+37
+1
+0
