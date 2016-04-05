@@ -60,9 +60,10 @@ public class PlaylistSearchImpl implements PlaylistSearch {
 		
 		SearchResponse response = client.prepareSearch(VideoSearchImpl.INDEX_NAME)
 				.setTypes(VideoSearchImpl.TYPE_NAME)
-		        .setSearchType(SearchType.COUNT)
+		        .setSearchType(SearchType.QUERY_THEN_FETCH)
 		        .setQuery(mainQuery)
 		        .addAggregation(mainAggs)
+		        .setSize(0)
 		        .execute()
 		        .actionGet()
         ;
@@ -70,7 +71,7 @@ public class PlaylistSearchImpl implements PlaylistSearch {
 		Terms terms = response.getAggregations().get("playlist");
 		Playlist playlist = null;
 		for ( Bucket bucket : terms.getBuckets() ) {
-			playlist = this.getOneById(bucket.getKey());
+			playlist = this.getOneById(bucket.getKeyAsString());
 			
 			if ( playlist != null ) {
 				playlist.setVideos(videoSearch.listVideoByPlaylistId(playlist.getPlaylistId(), 1, VideoSearchImpl.MAX_VIDEO_COUNT));
@@ -106,9 +107,10 @@ public class PlaylistSearchImpl implements PlaylistSearch {
 		
 		SearchResponse response = client.prepareSearch(VideoSearchImpl.INDEX_NAME)
 				.setTypes(VideoSearchImpl.TYPE_NAME)
-		        .setSearchType(SearchType.COUNT)
+		        .setSearchType(SearchType.QUERY_THEN_FETCH)
 		        .setQuery(mainQuery)
 		        .addAggregation(mainAggs)
+		        .setSize(0)
 		        .execute()
 		        .actionGet()
         ;
@@ -116,7 +118,7 @@ public class PlaylistSearchImpl implements PlaylistSearch {
 		Terms terms = response.getAggregations().get("playlist");
 		Playlist playlist = null;
 		for ( Bucket bucket : terms.getBuckets() ) {
-			playlist = this.getOneById(bucket.getKey());
+			playlist = this.getOneById(bucket.getKeyAsString());
 			
 			if ( playlist != null ) {
 				playlist.setVideos(videoSearch.listVideoByPlaylistId(playlist.getPlaylistId(), 1, VideoSearchImpl.MAX_VIDEO_COUNT));

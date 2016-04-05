@@ -82,9 +82,10 @@ public class AdvertiseSearchImpl implements AdvertiseSearch {
 		
 		SearchResponse response = client.prepareSearch(INDEX_NAME)
 				.setTypes(TYPE_NAME)
-		        .setSearchType(SearchType.COUNT)
+		        .setSearchType(SearchType.QUERY_THEN_FETCH)
 		        .setQuery(filteredQuery)
 		        .addAggregation(mainAggs)
+		        .setSize(0)
 		        .execute()
 		        .actionGet()
         ;
@@ -93,7 +94,7 @@ public class AdvertiseSearchImpl implements AdvertiseSearch {
 		List<Tutor> tutors = new ArrayList<Tutor>();
 		for ( Bucket bucket : terms.getBuckets() ) {
 			if ( size > tutors.size() ) {
-				tutors.add(tutorSearch.getOneById(bucket.getKey()));
+				tutors.add(tutorSearch.getOneById(bucket.getKeyAsString()));
 			}
 		}
 		
