@@ -1,10 +1,9 @@
 package com.zaad.web.search.impl;
 
-import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
-import static org.elasticsearch.index.query.FilterBuilders.existsFilter;
-import static org.elasticsearch.index.query.FilterBuilders.nestedFilter;
-import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.existsQuery;
+import static org.elasticsearch.index.query.QueryBuilders.nestedQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +13,7 @@ import javax.annotation.Resource;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.index.query.BoolFilterBuilder;
-import org.elasticsearch.index.query.FilteredQueryBuilder;
-import org.elasticsearch.index.query.NestedFilterBuilder;
+import org.elasticsearch.index.query.NestedQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
@@ -57,16 +54,20 @@ public class AdvertiseSearchImpl implements AdvertiseSearch {
 		QueryBuilder mainQuery = matchAllQuery();
 		;
 		
-		BoolFilterBuilder boolFilter = boolFilter()
-				.must(existsFilter(NESTED_FILED + ".adSite"))
-				.must(existsFilter(NESTED_FILED + ".adSiteTitle"))
-				.must(existsFilter(NESTED_FILED + ".profileImagePath"))
-				.must(existsFilter(NESTED_FILED + ".bannerImagePath"))
+		QueryBuilder boolFilter = boolQuery()
+				.must(existsQuery(NESTED_FILED + ".adSite"))
+				.must(existsQuery(NESTED_FILED + ".adSiteTitle"))
+				.must(existsQuery(NESTED_FILED + ".profileImagePath"))
+				.must(existsQuery(NESTED_FILED + ".bannerImagePath"))
 		;		
 		
 				
-		NestedFilterBuilder mainFilter = nestedFilter(NESTED_FILED, boolFilter);
-		FilteredQueryBuilder filteredQuery = filteredQuery(mainQuery, mainFilter);
+		NestedQueryBuilder nestedQuery = nestedQuery(NESTED_FILED, boolFilter);
+		
+		QueryBuilder queryBuilder = boolQuery()
+										.must(mainQuery)
+										.filter(nestedQuery)
+									;
 		
 			
 		AvgBuilder subAggs = AggregationBuilders.avg("avg")
@@ -83,7 +84,7 @@ public class AdvertiseSearchImpl implements AdvertiseSearch {
 		SearchResponse response = client.prepareSearch(INDEX_NAME)
 				.setTypes(TYPE_NAME)
 		        .setSearchType(SearchType.QUERY_THEN_FETCH)
-		        .setQuery(filteredQuery)
+		        .setQuery(queryBuilder)
 		        .addAggregation(mainAggs)
 		        .setSize(0)
 		        .execute()

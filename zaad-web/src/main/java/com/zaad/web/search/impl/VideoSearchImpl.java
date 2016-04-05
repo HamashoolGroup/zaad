@@ -1,14 +1,12 @@
 package com.zaad.web.search.impl;
 
-import static org.elasticsearch.index.query.FilterBuilders.notFilter;
-import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
-import static org.elasticsearch.index.query.FilterBuilders.termsFilter;
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
-import static org.elasticsearch.index.query.QueryBuilders.filteredQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
+import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
+import static org.elasticsearch.index.query.QueryBuilders.termsQuery;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,9 +19,8 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.FilteredQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.RangeFilterBuilder;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
@@ -137,16 +134,19 @@ public class VideoSearchImpl implements VideoSearch {
 
 	public List<Video> listVideoByPlaylistId(String playlistId, int index, int size) {
 		QueryBuilder mainQuery = termQuery("playlistId", playlistId);
-		RangeFilterBuilder rangeFilter = rangeFilter("index").gt(index);
+		RangeQueryBuilder ragneQuery = rangeQuery("index").gt(index);
 		
-		FilteredQueryBuilder filteredQuery = filteredQuery(mainQuery, rangeFilter);
+		BoolQueryBuilder boolQuery = boolQuery()
+										.must(mainQuery)
+										.filter(ragneQuery)
+									;
 		
 		SortBuilder sort = SortBuilders.fieldSort("index").order(SortOrder.ASC);
 		
 		SearchResponse response = client.prepareSearch(INDEX_NAME)
 				.setTypes(TYPE_NAME)
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-		        .setQuery(filteredQuery)
+		        .setQuery(boolQuery)
 		        .setFrom(0)
 		        .setSize(size)
 		        .addSort(sort)
@@ -306,9 +306,10 @@ public class VideoSearchImpl implements VideoSearch {
 		
 		SearchResponse response = client.prepareSearch(INDEX_NAME)
 				.setTypes(TYPE_NAME)
-		        .setSearchType(SearchType.COUNT)
+		        .setSearchType(SearchType.QUERY_THEN_FETCH)
 		        .setQuery(mainQuery)
 		        .addAggregation(mainAggs)
+		        .setSize(0)
 		        .execute()
 		        .actionGet()
         ;
@@ -317,7 +318,7 @@ public class VideoSearchImpl implements VideoSearch {
 		List<String> relatedTags = new ArrayList<String>();
 		for ( Bucket bucket : terms.getBuckets() ) {
 			if ( !tag.equals(bucket.getKey()) && size > relatedTags.size() ) {
-				relatedTags.add(bucket.getKey());
+				relatedTags.add(bucket.getKeyAsString());
 			}
 		}
 		
@@ -347,7 +348,7 @@ public class VideoSearchImpl implements VideoSearch {
 		List<String> relatedTags = new ArrayList<String>();
 		for ( Bucket bucket : terms.getBuckets() ) {
 			if ( !text.toLowerCase().equals(bucket.getKey()) && size > relatedTags.size() ) {
-				relatedTags.add(bucket.getKey());
+				relatedTags.add(bucket.getKeyAsString());
 			}
 		}
 		
@@ -361,7 +362,10 @@ public class VideoSearchImpl implements VideoSearch {
 		skipTags.add("kid");
 		skipTags.add("news");
 		
-		QueryBuilder mainQuery = filteredQuery(queryBuilder, notFilter(termsFilter("tags", skipTags)));
+		QueryBuilder mainQuery = boolQuery()
+									.must(queryBuilder)
+									.mustNot((termsQuery("tags", skipTags)))
+								;
 		return mainQuery;
 	}
 }
