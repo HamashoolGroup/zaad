@@ -1,16 +1,21 @@
 package com.zaad.indexer.common;
 
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.admin.indices.alias.get.GetAliasesRequest;
+import org.elasticsearch.action.admin.indices.alias.get.GetAliasesResponse;
 import org.elasticsearch.action.admin.indices.close.CloseIndexRequest;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.admin.indices.refresh.RefreshRequest;
-import org.elasticsearch.client.Requests;
 import org.elasticsearch.cluster.metadata.AliasMetaData;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
-import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.settings.SettingsException;
 
 import com.zaad.indexer.common.util.ZaadEsNamingManager;
 import com.zaad.indexer.common.util.ZaadEsSchemFileManager;
@@ -43,10 +48,16 @@ public abstract class ZaadEsBulkRunner extends ZaadEsTransportClientRunner {
 			this.client.admin().indices().delete(deleteRequest).actionGet();
 		}
 		
-		Settings settings = ImmutableSettings.settingsBuilder()
-            .loadFromClasspath(ZaadEsSchemFileManager.getSettingsPath(indexName, typeName))
-            .build()
-        ;
+		Settings settings = null;
+		try {
+			System.out.println(ZaadEsSchemFileManager.getSettingsPath(indexName, typeName));
+			System.out.println(this.getClass().getResource(ZaadEsSchemFileManager.getSettingsPath(indexName, typeName)));
+			settings = Settings.settingsBuilder()
+			        .loadFromPath(Paths.get(this.getClass().getResource(ZaadEsSchemFileManager.getSettingsPath(indexName, typeName)).toURI()))
+			        .build();
+		} catch (SettingsException | URISyntaxException e) {
+			e.printStackTrace();
+		}
 		
 		CreateIndexRequest request = new CreateIndexRequest(nextIndexName, settings);
 		this.client.admin().indices().create(request).actionGet();
@@ -107,14 +118,8 @@ public abstract class ZaadEsBulkRunner extends ZaadEsTransportClientRunner {
 	}
 	
 	private String getIndexNameByAlias(String aliasName) {
-		ImmutableOpenMap<String, AliasMetaData> aliasMap = 
-			this.client.admin().cluster().state(Requests.clusterStateRequest())
-				.actionGet()
-				.getState()
-				.getMetaData()
-				.aliases()
-				.get(aliasName)
-			;
+		GetAliasesResponse getAliasesResponse = this.client.admin().indices().getAliases(new GetAliasesRequest(aliasName)).actionGet();
+		ImmutableOpenMap<String, List<AliasMetaData>> aliasMap = getAliasesResponse.getAliases();
 		
 		if ( aliasMap != null && !aliasMap.isEmpty() ) {
 			return aliasMap.keys().iterator().next().value;
