@@ -5,7 +5,6 @@ import java.net.URLDecoder;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.common.jackson.dataformat.yaml.snakeyaml.util.UriEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.snakeyaml.util.UriEncoder;
 import com.zaad.common.ZaadCommonConstants;
 import com.zaad.common.domain.Video;
 import com.zaad.web.domain.HtmlSeo;
