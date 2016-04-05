@@ -1,8 +1,10 @@
 package com.zaad.indexer.transport;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
@@ -23,16 +25,20 @@ public class ZaadEsTransportClientRunner {
 		ES_PORT = ZaadProperties.getAsInt("es.port");
 	}
 	
-	@SuppressWarnings("resource")
 	public ZaadEsTransportClientRunner() {
-		Settings settings = ImmutableSettings.settingsBuilder()
+		Settings settings = Settings.settingsBuilder()
 				.put("cluster.name", ES_CLUSTER_NAME)
 				.build()
 		;
 		
-		this.client = new TransportClient(settings)
-			.addTransportAddress(new InetSocketTransportAddress(ES_HOST, ES_PORT))
-		;
+		try {
+			this.client = TransportClient.builder().settings(settings).build()
+				.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ES_HOST), ES_PORT))
+			;
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void close() {
