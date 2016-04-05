@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ZaadEsSchemFileManager {
 	public static String getSettingsPath(String indexName, String typeName) {
-		return "schema/" + indexName + "/" + indexName + "_" + typeName + "_settings.json";
+		return "/schema/" + indexName + "/" + indexName + "_" + typeName + "_settings.json";
 	}
 	
 	public static String getMappingsPath(String indexName, String typeName) {
