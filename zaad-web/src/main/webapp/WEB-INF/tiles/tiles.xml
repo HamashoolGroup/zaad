@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+	<!-- Templates -->
+	<definition name="layout.basic" template="/WEB-INF/tiles/layout/basic.jsp">
+		<put-attribute name="title" value="malsami" />
+		<put-attribute name="header" value="/WEB-INF/tiles/layout/view/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/layout/view/footer.jsp" />
+	</definition>
+
+	<!-- Pages -->
+	<definition name="zaad.index" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/main.jsp" />
+	</definition>
+	
+	<definition name="zaad.video.detail" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/video/detail.jsp" />
+	</definition>
+	
+	<definition name="zaad.tutor.detail" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/tutor/detail.jsp" />
+	</definition>
+	
+	<definition name="zaad.category.list" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/category/list.jsp" />
+	</definition>
+	
+	<definition name="zaad.search.list" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/search/list.jsp" />
+	</definition>
+	
+	<definition name="zaad.track.index" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/track/index.jsp" />
+	</definition>
+	<definition name="zaad.track.detail" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/track/detail.jsp" />
+	</definition>
+</tiles-definitions>

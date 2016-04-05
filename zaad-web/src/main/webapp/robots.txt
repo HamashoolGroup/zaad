@@ -1,0 +1,3 @@
+Sitemap: http://www.malsami.com/sitemap.xml
+User-agent: *
+Allow: /*
