@@ -13,8 +13,13 @@ import org.springframework.context.annotation.Configuration;
 import com.zaad.common.ZaadExecutionMode;
 import com.zaad.common.util.ZaadProperties;
 
+/**
+ * @author lks21c
+ */
 @Configuration
 public class EsClientConfig {
+    // 간략히 설명하자면 커맨드라인, application.properties 순으로 의존성을 주입한다.
+    // 참고 : https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
 	@Value("${es.cluster.name}")
 	private String ES_CLUSTER_NAME;
 

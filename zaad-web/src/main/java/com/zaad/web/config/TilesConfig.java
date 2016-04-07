@@ -7,7 +7,7 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 /**
- * Created by lks21c on 16. 3. 14.
+ * @author lks21c
  */
 @Configuration
 public class TilesConfig {
