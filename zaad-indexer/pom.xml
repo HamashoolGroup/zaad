@@ -26,7 +26,30 @@
 			<artifactId>language-detector</artifactId>
 			<version>0.5</version>
 		</dependency>
-	</dependencies>
+
+        <!-- 테스트용 설정 시작 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-test-framework</artifactId>
+            <version>${lucene.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>${es.version}</version>
+            <type>test-jar</type>
+        </dependency>
+
+        <!-- 테스트용 설정 끝 -->
+
+    </dependencies>
 
 	<build>
 		<plugins>

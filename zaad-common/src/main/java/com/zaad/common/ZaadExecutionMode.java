@@ -9,7 +9,7 @@ public class ZaadExecutionMode {
 	public static int currentMode = -1;
 
 
-	public static boolean isTestUtuntu(int mode) {
+	public static boolean isTestUbuntu(int mode) {
 		if ( T_UBUNTU == mode ) {
 			return true;
 		}
@@ -43,8 +43,8 @@ public class ZaadExecutionMode {
 	
 	public static String getEnvSuffix(String mode) {
 		int modeInt = Integer.parseInt(mode);
-		
-		if ( isTestUtuntu(modeInt) ) {
+
+		if (isTestUbuntu(modeInt)) {
 			return "-t-ubuntu";
 		} else if ( isTestMac(modeInt) ) {
 			return "-t-mac";
