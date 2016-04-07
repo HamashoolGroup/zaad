@@ -46,7 +46,6 @@
             <version>${es.version}</version>
             <type>test-jar</type>
         </dependency>
-
         <!-- 테스트용 설정 끝 -->
 
     </dependencies>

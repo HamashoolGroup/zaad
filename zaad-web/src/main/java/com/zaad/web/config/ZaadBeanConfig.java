@@ -14,18 +14,10 @@ import com.zaad.common.util.ZaadProperties;
 
 @Configuration
 public class ZaadBeanConfig {
-	private static String ES_CLUSTER_NAME;
-	private static String ES_HOST;
-	private static int ES_PORT;
-	
-	static {
-		System.out.println(ZaadBeanConfig.class.getClassLoader().getResource("zaad" + ZaadExecutionMode.getEnvSuffix(System.getProperty("mode")) + ".properties"));
-		ZaadProperties.loadProperties(ZaadBeanConfig.class.getClassLoader().getResourceAsStream("zaad" + ZaadExecutionMode.getEnvSuffix(System.getProperty("mode")) + ".properties"));
-		ES_CLUSTER_NAME = ZaadProperties.getAsString("es.cluster.name");
-		ES_HOST = ZaadProperties.getAsString("es.host");
-		ES_PORT = ZaadProperties.getAsInt("es.port");
-	}
-	
+	private static String ES_CLUSTER_NAME = "local";
+	private static String ES_HOST = "localhost";
+	private static int ES_PORT = 9300;
+
 	@Bean(destroyMethod = "close")
 	public TransportClient transportClient() {
 		Settings settings = Settings.settingsBuilder()
