@@ -6,6 +6,8 @@ import java.net.UnknownHostException;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +31,13 @@ public class EsClientConfig {
 	@Value("${es.port}")
 	private int ES_PORT;
 
+    private Logger logger = LoggerFactory.getLogger(EsClientConfig.class);
+
 	@Bean(destroyMethod = "close")
 	public TransportClient transportClient() {
+        logger.info("ES_CLUSTER_NAME = " + ES_CLUSTER_NAME);
+        logger.info("ES_HOST = " + ES_HOST);
+        logger.info("ES_PORT = " + ES_PORT);
 		Settings settings = Settings.settingsBuilder()
 				.put("cluster.name", ES_CLUSTER_NAME)
 				.build()
