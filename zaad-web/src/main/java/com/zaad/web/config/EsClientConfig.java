@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,10 +14,15 @@ import com.zaad.common.ZaadExecutionMode;
 import com.zaad.common.util.ZaadProperties;
 
 @Configuration
-public class ZaadBeanConfig {
-	private static String ES_CLUSTER_NAME = "local";
-	private static String ES_HOST = "localhost";
-	private static int ES_PORT = 9300;
+public class EsClientConfig {
+	@Value("${es.cluster.name}")
+	private String ES_CLUSTER_NAME;
+
+	@Value("${es.host}")
+	private String ES_HOST;
+
+	@Value("${es.port}")
+	private int ES_PORT;
 
 	@Bean(destroyMethod = "close")
 	public TransportClient transportClient() {
