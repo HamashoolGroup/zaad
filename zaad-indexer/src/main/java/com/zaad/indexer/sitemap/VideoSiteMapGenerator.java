@@ -1,17 +1,16 @@
 package com.zaad.indexer.sitemap;
 
+import com.zaad.common.domain.Video;
+import com.zaad.common.util.ZaadProperties;
+import com.zaad.indexer.transport.ZaadEsTransportClientRunner;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.zaad.common.ZaadExecutionMode;
-import com.zaad.common.domain.Video;
-import com.zaad.common.util.ZaadProperties;
-import com.zaad.indexer.transport.ZaadEsTransportClientRunner;
-
-public class VideoSitemapGenerator {
+public class VideoSiteMapGenerator {
 	private static final String SITEMAP_FILE_NAME = "sitemap_video.xml";
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -19,9 +18,11 @@ public class VideoSitemapGenerator {
 	private static final String LAST_MOD = sdf.format(date) + "+09:00";
 	
 	private PrintWriter pw;
-	
-	public VideoSitemapGenerator() {
-		ZaadProperties.loadProperties(ZaadEsTransportClientRunner.class.getClassLoader().getResourceAsStream("zaad" + ZaadExecutionMode.getEnvSuffix(System.getProperty("mode")) + ".properties"));
+
+	public VideoSiteMapGenerator() {
+		ZaadProperties.loadProperties(
+				ZaadEsTransportClientRunner.class.getClassLoader().getResourceAsStream(
+						"zaad-t-ubuntu.properties"));
 		
 		File sitemapFile = new File(ZaadProperties.getAsString("sitemap.output.path") + "/" + SITEMAP_FILE_NAME);
 		try {

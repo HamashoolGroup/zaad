@@ -1,8 +1,5 @@
 package com.zaad.web.config;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -12,8 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.zaad.common.ZaadExecutionMode;
-import com.zaad.common.util.ZaadProperties;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * @author lks21c

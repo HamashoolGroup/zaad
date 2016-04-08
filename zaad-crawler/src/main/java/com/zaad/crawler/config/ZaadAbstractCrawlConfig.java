@@ -1,20 +1,17 @@
 package com.zaad.crawler.config;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-
-import org.apache.http.message.BasicHeader;
-
-import com.zaad.common.ZaadExecutionMode;
 import com.zaad.common.util.ZaadProperties;
-
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
+import org.apache.http.message.BasicHeader;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 public abstract class ZaadAbstractCrawlConfig {
 	protected static int NUMBER_OF_CRAWLERS;
@@ -23,7 +20,9 @@ public abstract class ZaadAbstractCrawlConfig {
 	protected static String USER_AGENT_STRING = "malsami-bots";
 	
 	static {
-		ZaadProperties.loadProperties(ZaadAbstractCrawlConfig.class.getClassLoader().getResourceAsStream("zaad" + ZaadExecutionMode.getEnvSuffix(System.getProperty("mode")) + ".properties"));
+		ZaadProperties.loadProperties(
+				ZaadAbstractCrawlConfig.class.getClassLoader().getResourceAsStream(
+						"zaad-t-ubuntu.properties"));
 		NUMBER_OF_CRAWLERS = ZaadProperties.getAsInt("crawler.number");
 		CRAWL_STORAGE_FOLDER = ZaadProperties.getAsString("crawler.storage_folder");
 		POLITENESS_DELAY = ZaadProperties.getAsInt("crawler.politeness_deplay");

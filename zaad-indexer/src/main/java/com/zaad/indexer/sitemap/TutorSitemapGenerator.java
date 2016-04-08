@@ -1,15 +1,14 @@
 package com.zaad.indexer.sitemap;
 
+import com.zaad.common.domain.Tutor;
+import com.zaad.common.util.ZaadProperties;
+import com.zaad.indexer.transport.ZaadEsTransportClientRunner;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.zaad.common.ZaadExecutionMode;
-import com.zaad.common.domain.Tutor;
-import com.zaad.common.util.ZaadProperties;
-import com.zaad.indexer.transport.ZaadEsTransportClientRunner;
 
 public class TutorSitemapGenerator {
 	private static final String SITEMAP_FILE_NAME = "sitemap_tutor.xml";
@@ -21,7 +20,9 @@ public class TutorSitemapGenerator {
 	private PrintWriter pw;
 	
 	public TutorSitemapGenerator() {
-		ZaadProperties.loadProperties(ZaadEsTransportClientRunner.class.getClassLoader().getResourceAsStream("zaad" + ZaadExecutionMode.getEnvSuffix(System.getProperty("mode")) + ".properties"));
+		ZaadProperties.loadProperties(
+				ZaadEsTransportClientRunner.class.getClassLoader().getResourceAsStream(
+						"zaad-t-ubuntu.properties"));
 		
 		File sitemapFile = new File(ZaadProperties.getAsString("sitemap.output.path") + "/" + SITEMAP_FILE_NAME);
 		try {

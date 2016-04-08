@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zaad.common.ZaadExecutionMode;
-
 /**
  * 
  * data/
@@ -55,8 +53,10 @@ public class ZaadOutputDirectoryManager {
 	public static final String VIDEO_DIR_PREFIX = "V";
 	
 	static {
-		ZaadProperties.loadProperties(ZaadOutputDirectoryManager.class.getClassLoader().getResourceAsStream("zaad" + ZaadExecutionMode.getEnvSuffix(System.getProperty("mode")) + ".properties"));
-		CRAWL_ROOT_PATH = ZaadProperties.getAsString("crawler.root.path");
+        ZaadProperties.loadProperties(
+                ZaadOutputDirectoryManager.class.getClassLoader().getResourceAsStream(
+                        "zaad-t-ubuntu.properties"));
+        CRAWL_ROOT_PATH = ZaadProperties.getAsString("crawler.root.path");
 		CRAWL_ROOT_DATA_PATH = CRAWL_ROOT_PATH + "/data";
 		CRAWL_ROOT_SEED_PATH = CRAWL_ROOT_PATH + "/seed";
 	}
