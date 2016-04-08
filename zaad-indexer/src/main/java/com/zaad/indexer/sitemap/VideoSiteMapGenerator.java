@@ -22,7 +22,7 @@ public class VideoSiteMapGenerator {
 	public VideoSiteMapGenerator() {
 		ZaadProperties.loadProperties(
 				ZaadEsTransportClientRunner.class.getClassLoader().getResourceAsStream(
-						"zaad-t-ubuntu.properties"));
+						"zaad.properties"));
 		
 		File sitemapFile = new File(ZaadProperties.getAsString("sitemap.output.path") + "/" + SITEMAP_FILE_NAME);
 		try {
