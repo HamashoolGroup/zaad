@@ -22,7 +22,7 @@ public abstract class ZaadAbstractCrawlConfig {
 	static {
 		ZaadProperties.loadProperties(
 				ZaadAbstractCrawlConfig.class.getClassLoader().getResourceAsStream(
-						"zaad-t-ubuntu.properties"));
+						"zaad.properties"));
 		NUMBER_OF_CRAWLERS = ZaadProperties.getAsInt("crawler.number");
 		CRAWL_STORAGE_FOLDER = ZaadProperties.getAsString("crawler.storage_folder");
 		POLITENESS_DELAY = ZaadProperties.getAsInt("crawler.politeness_deplay");

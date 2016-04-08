@@ -8,7 +8,6 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
-import com.zaad.common.ZaadExecutionMode;
 import com.zaad.common.util.ZaadProperties;
 
 public class ZaadEsTransportClientRunner {
@@ -19,7 +18,7 @@ public class ZaadEsTransportClientRunner {
 	protected Client client;
 	
 	static {
-		ZaadProperties.loadProperties(ZaadEsTransportClientRunner.class.getClassLoader().getResourceAsStream("zaad" + ZaadExecutionMode.getEnvSuffix(System.getProperty("mode")) + ".properties"));
+		ZaadProperties.loadProperties(ZaadEsTransportClientRunner.class.getClassLoader().getResourceAsStream("zaad.properties"));
 		ES_CLUSTER_NAME = ZaadProperties.getAsString("es.cluster.name");
 		ES_HOST = ZaadProperties.getAsString("es.host");
 		ES_PORT = ZaadProperties.getAsInt("es.port");
