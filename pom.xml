@@ -33,6 +33,7 @@
         <module>zaad-common</module>
         <module>zaad-indexer</module>
         <module>zaad-web</module>
+        <module>zaad-data</module>
     </modules>
 
     <dependencyManagement>
