@@ -51,11 +51,10 @@ public abstract class ZaadEsBulkRunner extends ZaadEsTransportClientRunner {
 		Settings settings = null;
 		try {
 			System.out.println(ZaadEsSchemFileManager.getSettingsPath(indexName, typeName));
-			System.out.println(this.getClass().getResource(ZaadEsSchemFileManager.getSettingsPath(indexName, typeName)));
 			settings = Settings.settingsBuilder()
-			        .loadFromPath(Paths.get(this.getClass().getResource(ZaadEsSchemFileManager.getSettingsPath(indexName, typeName)).toURI()))
+					.loadFromSource(ZaadEsSchemFileManager.readSettings(indexName, typeName))
 			        .build();
-		} catch (SettingsException | URISyntaxException e) {
+		} catch (SettingsException e) {
 			e.printStackTrace();
 		}
 		

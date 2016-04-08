@@ -1,0 +1,6 @@
+2016-04-08 23:27:01 INFO  plugins:180 - [Neophyte] modules [], plugins [], sites []
+2016-04-08 23:27:02 WARN  transport:371 - [Neophyte] node {#transport#-1}{127.0.0.1}{localhost/127.0.0.1:9300} not part of the cluster Cluster [local], ignoring...
+2016-04-08 23:27:45 INFO  plugins:180 - [Scintilla] modules [], plugins [], sites []
+2016-04-08 23:28:28 INFO  plugins:180 - [Lonnie Thompson Lincoln] modules [], plugins [], sites []
+2016-04-08 23:43:14 INFO  plugins:180 - [Crusader] modules [], plugins [], sites []
+2016-04-08 23:43:30 INFO  plugins:180 - [Baron Macabre] modules [], plugins [], sites []
