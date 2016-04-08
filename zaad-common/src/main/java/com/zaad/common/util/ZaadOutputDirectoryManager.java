@@ -55,7 +55,7 @@ public class ZaadOutputDirectoryManager {
 	static {
         ZaadProperties.loadProperties(
                 ZaadOutputDirectoryManager.class.getClassLoader().getResourceAsStream(
-                        "zaad-t-ubuntu.properties"));
+                        "zaad.properties"));
         CRAWL_ROOT_PATH = ZaadProperties.getAsString("crawler.root.path");
 		CRAWL_ROOT_DATA_PATH = CRAWL_ROOT_PATH + "/data";
 		CRAWL_ROOT_SEED_PATH = CRAWL_ROOT_PATH + "/seed";
