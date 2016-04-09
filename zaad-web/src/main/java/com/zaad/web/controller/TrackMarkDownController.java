@@ -5,24 +5,22 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaad.common.ZaadCommonConstants;
 import com.zaad.common.domain.Video;
 import com.zaad.web.domain.HtmlSeo;
 import com.zaad.web.domain.PackMarkDown;
 import com.zaad.web.parser.ZaadPackMarkDownParser;
 import com.zaad.web.search.VideoSearch;
+import com.zaad.web.util.TrackUtils;
 import com.zaad.web.util.ZaadWebSeoUtil;
 
 @Controller
@@ -35,28 +33,15 @@ public class TrackMarkDownController {
 	
 	@RequestMapping(value="/index", produces = "application/json; charset=utf8")
 	public ModelAndView index() throws JsonProcessingException {
-		List<String> tracks = new ArrayList<String>();
-		tracks.add("british_vs_american_accent");
-		tracks.add("daily_words_power");
-		tracks.add("enjoy_business_english");
-		tracks.add("how_to_learn_english");
-		tracks.add("irregular_verb");
-		tracks.add("killing_two_birds_with_news");
-		tracks.add("prepping_job_interview");
-		tracks.add("run_into_phrasal_verb");
-		tracks.add("slang_for_survival");
+		List<String> tracks = TrackUtils.listTrack();
 		
-		return new ModelAndView("zaad.track.index")
-				.addObject("track1", tracks.get(0))
-				.addObject("track2", tracks.get(1))
-				.addObject("track3", tracks.get(2))
-				.addObject("track4", tracks.get(3))
-				.addObject("track5", tracks.get(4))
-				.addObject("track6", tracks.get(5))
-				.addObject("track7", tracks.get(6))
-				.addObject("track8", tracks.get(7))
-				.addObject("track9", tracks.get(8))
-		;
+		ModelAndView mnv = new ModelAndView("zaad.track.index");
+		 
+		for ( int i = 0; i < tracks.size(); i++ ) {
+			mnv.addObject("track" + (i+1), tracks.get(i));
+		}
+	
+		return mnv;
 	}
 	
 	@RequestMapping("/{id}")
