@@ -11,6 +11,7 @@ $z.ajax.listVideoCol4 = function(pageContext, restURL, page, size, divId, action
 		type : "GET",
 		url : targetUrl,
 		success : function(data) {
+			console.debug(data);
 			if ( data.length < size) {
 				$('#' + divId + '-more').hide();
 			}
@@ -42,22 +43,16 @@ $z.ajax.listVideoCol4 = function(pageContext, restURL, page, size, divId, action
 				html += '			<p class="text-right z-tutor-name-text">\n';
 				html += '				' + $z.link.getTutorDetailAnchor(pageContext, data[i].tutor.tutorId, $z.formatter.string.tutorNameFriendly(data[i].tutor.tutorName));
 				html += '			</p>\n';
- 				if ( sortType == "R" ) {
 				html += '			<p class="text-right z-video-stats-text">\n';
-				html += '				' + $z.formatter.number.doubleFriendly(data[i].recommendarity) + " gram / " + $z.formatter.date.friendly(data[i].creationDate) + '</p>\n';
+				html += '				' + $z.formatter.date.friendly(data[i].creationDate) + '</p>\n';
 				html += '			</p>\n';
-				} else if ( sortType == "P" ) {
-				html += '			<p class="text-right z-video-stats-text">\n';
-				html += '				' + $z.formatter.number.doubleFriendly(data[i].popularity) + " gram / " + $z.formatter.date.friendly(data[i].creationDate) + '</p>\n';
-				html += '			</p>\n';
-				}
 				html += '			<p class="text-right z-video-tags-text">\n';
 				html += '				' + $z.link.getTagsAnchor(pageContext, data[i].tags) + '</p>\n';
 				html += '			</p>\n';
 				html += '			<p class="text-right z-video-tags-level-text">\n';
 				html += '				' + $z.link.getTagsAnchor(pageContext, data[i].levels) + '</p>\n';
 				html += '			</p>\n';
-				
+				html += $z.util.generateStarRating($z.util.normalizeRecommendarity(data[i].recommendarity))
 				html += '		</div>\n';
 				html += '	</article>\n';
 				html += '</div>\n';

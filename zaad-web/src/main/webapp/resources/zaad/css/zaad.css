@@ -281,3 +281,8 @@ a:hover{
 	color: #fff;
 	padding: 55px;
 }
+
+.zaad-star-rating {
+	font-size: 10px;
+	color: #cf543c;		
+}

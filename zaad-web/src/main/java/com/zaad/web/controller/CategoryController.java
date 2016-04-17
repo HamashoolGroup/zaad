@@ -40,9 +40,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value="/{cat}/list", produces = "application/json; charset=utf8")
-	public String list(@PathVariable("cat") String cat, @RequestParam(value="page", required=false, defaultValue="1") int page, @RequestParam(value="size", required=false, defaultValue="4") int size) throws JsonProcessingException {
-		String sortType = "A";
-		
+	public String list(@PathVariable("cat") String cat, @RequestParam(value="page", required=false, defaultValue="1") int page, @RequestParam(value="size", required=false, defaultValue="4") int size, @RequestParam(value="sortType", required=false, defaultValue="R") String sortType) throws JsonProcessingException {
 		List<String> tags = new ArrayList<String>();
 		tags.add(cat);
 		List<Video> videos = videoSearch.searchVideoByTags("userId", tags, page, size, sortType);
