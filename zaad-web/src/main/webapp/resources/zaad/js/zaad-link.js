@@ -36,3 +36,7 @@ $z.link.getTagsAnchor = function(context, tags, maxTagCnt) {
 	
 	return tagsText;
 };
+
+$z.link.getTagCountAnchor = function(context, tag, count) {
+	return "#" + "<a href='" + context + "/tag/" + tag + "'>" + tag + "</a>" + " (" + count + ")";
+}

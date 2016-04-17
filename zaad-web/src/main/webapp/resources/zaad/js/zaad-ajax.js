@@ -6,7 +6,7 @@ $z.ajax.listVideoCol4 = function(pageContext, restURL, page, size, divId, action
 	if ( queryText ) {
 		targetUrl = targetUrl + "&text=" + encodeURIComponent(queryText);
 	}
-		
+	
 	$.ajax({
 		type : "GET",
 		url : targetUrl,

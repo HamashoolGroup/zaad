@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.zaad.common.domain.Video;
+import com.zaad.web.domain.TagCount;
 import com.zaad.web.search.VideoSearch;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,14 +33,14 @@ public class VideoSearchImplTest {
 	
 	@Test
 	public void listRelatedTags() {
-		List<String> relatedTags = videoSearch.listRelatedTags("vocabulary", 5);
+		List<TagCount> relatedTags = videoSearch.listRelatedTags("vocabulary", 5);
 		
 		System.out.println(relatedTags);
 	}
 	
 	@Test
 	public void listRelatedTagsOfSearch() {
-		List<String> relatedTags = videoSearch.listRelatedTagsOfSearch("interview", 5);
+		List<TagCount> relatedTags = videoSearch.listRelatedTagsOfSearch("interview", 5);
 		
 		System.out.println(relatedTags);
 	}
