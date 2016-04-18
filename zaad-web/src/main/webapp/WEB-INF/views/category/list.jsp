@@ -33,7 +33,9 @@
 					
 					<div class="row">
 						<div class="z-see-all">
-							<a id="tag-category-video-div-more" href="#tag-category-video-div-1">-- More --</a>
+							<a id="tag-category-video-div-more" href="#tag-category-video-div-1">
+								<input type="button" class="btn btn-default zaad-more" value="Load More">
+							</a>
 						</div>
 					</div>
 				</div>

@@ -153,7 +153,9 @@
 					
 					<div class="row">
 						<div class="z-see-all">
-							<a id="recent-video-div-more" href="#recent-video-div-1">-- More --</a>
+							<a id="recent-video-div-more" href="#recent-video-div-1">
+								<input type="button" class="btn btn-default zaad-more" value="Load More">
+							</a>
 						</div>
 					</div>
 				</div> <!-- //Recent Videos -->
@@ -163,7 +165,9 @@
 					<div class="z-section-title">
 						<h3 class="pull-left">Recommend Tracks</h3>
 						<div class="pull-right see-all">
-							<a href="${pageContext.servletContext.contextPath}/track/index" title="English track for you recommended by malsaMi">-- See all --</a>
+							<a href="${pageContext.servletContext.contextPath}/track/index" title="English track for you recommended by malsaMi">
+								More Tracks <i class="fa fa-caret-right"></i>
+							</a>
 						</div>
 					</div>
 					
@@ -322,7 +326,9 @@
 					
 					<div clas="row">
 						<div class="z-see-all">
-							<a id="recommended-video-div-more" href="#recommended-video-div-1">-- More --</a>
+							<a id="recommended-video-div-more" href="#recommended-video-div-1">
+								<input type="button" class="btn btn-default zaad-more" value="Load More">
+							</a>
 						</div>
 					</div>
 				</div>
@@ -339,7 +345,9 @@
 					
 					<div clas="row">
 						<div class="z-see-all">
-							<a id="popular-video-div-more" href="#popular-video-div-1">-- More --</a>
+							<a id="popular-video-div-more" href="#popular-video-div-1">
+								<input type="button" class="btn btn-default zaad-more" value="Load More">
+							</a>
 						</div>
 					</div>
 				</div>

@@ -29,9 +29,11 @@
 					<div id="search-video-div">
 					</div>
 					
-					<div clas="row">
+					<div class="row">
 						<div class="z-see-all">
-							<a id="search-video-div-more" href="#search-video-div-1">-- More --</a>
+							<a id="search-video-div-more" href="#search-video-div-1">
+								<input type="button" class="btn btn-default zaad-more" value="Load More">
+							</a>
 						</div>
 					</div>
 				</div>

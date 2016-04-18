@@ -286,3 +286,21 @@ a:hover{
 	font-size: 10px;
 	color: #cf543c;		
 }
+
+
+.zaad-more:hover {
+	color: #cf543c;
+	background-color: #fff;
+}
+
+.zaad-more:active {
+	color: #cf543c;
+	background-color: #fff;
+	outline-color: #ccc !important;
+}
+
+.zaad-more:focus {
+	color: #cf543c;
+	background-color: #fff;
+	outline-color: #ccc !important;
+}
