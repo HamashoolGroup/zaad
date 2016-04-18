@@ -475,17 +475,18 @@ $(document).ready(function() {
 				html += '<div class="row" style="margin-bottom: 5px;">\n';
 				html += '	<div class="col-xs-4" style="margin-right: -15px;">\n';
 				html += '		<a href="' + $z.link.getTutorDetail("${pageContext.servletContext.contextPath}", data[i].tutorId) + '">\n';
-				html += '		    <img style="width: 100%;" src="' + data[i].profileImagePath + '">\n';
+				html += '		    <img class="img img-circle" style="width: 100%;" src="' + data[i].profileImagePath + '">\n';
 				html += '		</a>\n';
 				html += '	</div>\n';
 				html += '	<div class="col-xs-8">\n';
 				//html += '		<a href="' + $z.link.getTutorDetail("${pageContext.servletContext.contextPath}", data[i].tutorId) + '">\n';
 				//html += '			<p class="z-tutor-name-text">' + data[i].tutorName + '</p>\n';
 				//html += '		</a>\n';
-				html += '		<span class="z-video-tags-text"></span>\n';
-				html += '		<a href="' + $z.link.getTutorDetail("${pageContext.servletContext.contextPath}", data[i].tutorId) + '" class="z-tutor-name-text">\n';
-				html += '			' + data[i].tutorName + '\n';
-				html += '		</a>\n';
+				html += '       <p style="padding-top: 15px;">\n';
+				html += '			<a href="' + $z.link.getTutorDetail("${pageContext.servletContext.contextPath}", data[i].tutorId) + '" class="z-tutor-name-text">\n';
+				html += '				' + data[i].tutorName + '\n';
+				html += '			</a>\n';
+				html += '       <\p>\n';
 				html += '	</div>\n';
 				html += '</div>\n';
 			}

@@ -329,3 +329,16 @@ a:hover{
   padding: 15px 0;
   margin: 15px 0;
 }
+
+
+
+
+
+.z-playlist-video-img-area{
+	min-width: 138px;
+	min-height: 72px;
+}
+
+.z-playlist-video-img{
+	max-width: 128px;
+}

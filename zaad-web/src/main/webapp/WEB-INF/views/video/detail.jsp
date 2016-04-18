@@ -150,7 +150,7 @@ var formatDetail = function() {
 	$('#tags').html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", $z.util.arrayString2array('${video.tags}')));
 	$('#tags-level').html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", $z.util.arrayString2array('${video.levels}')));
 	
-	$('.zaad-start-rating > input').val($z.util.normalizeRecommendarity(${video.recommendarity}));
+	$('.zaad-star-rating > input').val($z.util.normalizeRecommendarity(${video.recommendarity}));
 	$z.util.setStarRating($(".zaad-star-rating .fa"));
 };
 
