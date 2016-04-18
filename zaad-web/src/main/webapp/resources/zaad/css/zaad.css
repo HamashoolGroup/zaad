@@ -118,7 +118,7 @@
 }
 
 .z-video-tags-div {
-	margin-top: 10px;
+	margin-top: 0px;
 }
 .z-video-tags-text, 
 .z-video-tags-text a {
@@ -303,4 +303,29 @@ a:hover{
 	color: #cf543c;
 	background-color: #fff;
 	outline-color: #ccc !important;
+}
+
+
+.author-avatar,
+.author-avatar-text {
+  display: inline-block;
+}
+.author-avatar-text {
+  margin: 0;
+  vertical-align: top;
+  padding-left: 14px;
+  color:#757575;
+}
+.author-avatar-text .author{
+	line-height: 16px;
+}
+.author-avatar-text .author a {
+    color: #000;
+    text-transform: capitalize;
+}
+
+
+.z-video-tutor {
+  padding: 15px 0;
+  margin: 15px 0;
 }

@@ -15,6 +15,22 @@
 						<div class="z-video-large">
 							<iframe id="main-video-iframe" src="" frameborder="0" allowfullscreen></iframe>
 						</div>
+						<div style="margin: 10px 0 10px 0;">
+							<div id="recent-video-large-rating" class="zaad-star-rating">
+								<span class="fa fa-star-o" data-rating="1"></span>
+								<span class="fa fa-star-o" data-rating="2"></span>
+								<span class="fa fa-star-o" data-rating="3"></span>
+								<span class="fa fa-star-o" data-rating="4"></span>
+								<span class="fa fa-star-o" data-rating="5"></span>
+								<input type="hidden" name="whatever" class="rating-value" value="3">
+							</div>
+							<div class="z-video-tags-div">
+								<span id="tags" class="z-video-detail-tags-text"></a></span>
+							</div>
+							<div>
+								<span id="tags-level" class="z-video-detail-tags-level-text"></a></span>
+							</div> 
+						</div>
 					</div>
 					<!-- //col-sm-7 -->
 					<!-- col-sm-5 -->
@@ -28,14 +44,8 @@
 				
 				<div class="row">
 					<div class="col-sm-12">
-						<div class="z-video-tags-div">
-							<span id="tags" class="z-video-detail-tags-text"></a></span>
-						</div>
-						<div>
-							<span id="tags-level" class="z-video-detail-tags-level-text"></a></span>
-						</div>
-						<div class="entry-blog-meta" style="max-width: 640px;">
-							<div class="entry-blog-meta-list">
+						<div class="z-video-tutor">
+							<div class="">
 								<div class="author-avatar">
 									<a href="${pageContext.servletContext.contextPath}/tutor/${video.tutor.tutorId}">
 										<img src="${video.tutor.profileImagePath}" alt="${video.tutor.tutorName}" title="${video.tutor.tutorName}">
@@ -139,6 +149,9 @@ var formatDetail = function() {
 	$('#creation-date').text($z.formatter.date.standard(${video.timestamp}));
 	$('#tags').html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", $z.util.arrayString2array('${video.tags}')));
 	$('#tags-level').html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", $z.util.arrayString2array('${video.levels}')));
+	
+	$('.zaad-start-rating > input').val($z.util.normalizeRecommendarity(${video.recommendarity}));
+	$z.util.setStarRating($(".zaad-star-rating .fa"));
 };
 
 var listVideoByPlaylist = function(videoIndex) {
