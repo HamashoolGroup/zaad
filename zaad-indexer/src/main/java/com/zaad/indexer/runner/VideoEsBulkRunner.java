@@ -9,11 +9,12 @@ import com.zaad.common.util.ZaadOutputDirectoryManager;
 import com.zaad.indexer.common.ZaadEsBulkRunner;
 import com.zaad.indexer.common.util.ZaadLanguageUtil;
 import com.zaad.indexer.sitemap.VideoSiteMapGenerator;
+import com.zaad.indexer.transport.ZaadEsClient;
+import com.zaad.indexer.transport.ZaadEsTransportClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
-import org.elasticsearch.client.Client;
 
 import java.io.File;
 import java.util.*;
@@ -30,16 +31,18 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
     }
 
     public static void main(String[] args) {
-        VideoEsBulkRunner runner = new VideoEsBulkRunner();
+        ZaadEsClient zaadEsClient = new ZaadEsTransportClient();
+        VideoEsBulkRunner runner = new VideoEsBulkRunner(zaadEsClient);
         runner.bulk();
     }
 
     public VideoEsBulkRunner() {
     }
 
-    public VideoEsBulkRunner(Client client) {
-        this.client = client;
+    public VideoEsBulkRunner(ZaadEsClient zaadEsClient) {
+        this.client = zaadEsClient;
     }
+
 
     @Override
     protected void init() {
@@ -52,7 +55,7 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
     protected void bulk() {
         init();
 
-        BulkRequestBuilder bulRequestBuilder = this.client.prepareBulk();
+        BulkRequestBuilder bulRequestBuilder = this.client.getClient().prepareBulk();
 
         List<String> tutorPlaylistVideoIds = ZaadOutputDirectoryManager.getDataVideoIds();
         ObjectMapper mapper = new ObjectMapper();
@@ -118,7 +121,7 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
                 }
 
                 if (video != null) {
-                    bulRequestBuilder.add(client.prepareIndex(newIndexName, typeName, video.getZaadId())
+                    bulRequestBuilder.add(client.getClient().prepareIndex(newIndexName, typeName, video.getZaadId())
                             .setSource(mapper.writeValueAsString(video))
                     );
 
@@ -132,7 +135,7 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
                         // TODO: do something
                     }
 
-                    bulRequestBuilder = this.client.prepareBulk();
+                    bulRequestBuilder = this.client.getClient().prepareBulk();
                 }
 
             } catch (Exception e) {
@@ -157,4 +160,6 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
 
         beforeExit(newIndexName, newIndexName, aliasName);
     }
+
+
 }

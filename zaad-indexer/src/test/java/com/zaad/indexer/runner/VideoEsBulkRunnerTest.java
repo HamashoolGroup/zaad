@@ -1,15 +1,15 @@
 package com.zaad.indexer.runner;
 
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
+import com.zaad.indexer.transport.ZaadEsClient;
+import com.zaad.indexer.transport.ZaadEsTransportClient;
 import org.junit.Test;
 
 public class VideoEsBulkRunnerTest {
 
     @Test
     public void test() {
-        Client client = new TransportClient.Builder().build();
-        VideoEsBulkRunner videoEsBulkRunner = new VideoEsBulkRunner(client);
+        ZaadEsClient zaadEsClient = new ZaadEsTransportClient();
+        VideoEsBulkRunner videoEsBulkRunner = new VideoEsBulkRunner(zaadEsClient);
         videoEsBulkRunner.bulk();
     }
 
