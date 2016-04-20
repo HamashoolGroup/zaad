@@ -1,5 +1,6 @@
 package com.zaad.indexer.common;
 
+import com.carrotsearch.hppc.cursors.ObjectCursor;
 import com.zaad.indexer.common.util.ZaadEsNamingManager;
 import com.zaad.indexer.common.util.ZaadEsSchemFileManager;
 import com.zaad.indexer.transport.ZaadEsClient;
@@ -18,6 +19,13 @@ import org.elasticsearch.common.settings.SettingsException;
 
 import java.util.List;
 
+/**
+ * 벌크색인을 위한 추상클래스.
+ * Alias를 이용하여 서비스중인 Index에 영향 없이 다른 index에 색인 완료 후 Alias를 교체하기위
+ * 새로운 index를 초기화 하는 역할을 한다.
+ *
+ * @author socurites, lks21c
+ */
 public abstract class ZaadEsBulkRunner {
     protected String indexName;
     protected String typeName;
@@ -39,10 +47,10 @@ public abstract class ZaadEsBulkRunner {
     protected String createIndex(String indexName, String typeName, String defaultIndexName, String aliasName) {
         String nextIndexName = getNextIndexName(aliasName, defaultIndexName);
 
-        if (client.getClient().admin().indices().exists(new IndicesExistsRequest(nextIndexName)).actionGet().isExists()) {
+        if (client.getClient().admin().indices().exists(
+                new IndicesExistsRequest(nextIndexName)).actionGet().isExists()) {
             CloseIndexRequest closeRequest = new CloseIndexRequest(nextIndexName);
             client.getClient().admin().indices().close(closeRequest).actionGet();
-
             DeleteIndexRequest deleteRequest = new DeleteIndexRequest(nextIndexName);
             client.getClient().admin().indices().delete(deleteRequest).actionGet();
         }
@@ -96,6 +104,16 @@ public abstract class ZaadEsBulkRunner {
         }
     }
 
+    /**
+     * 벌크색인을 위해 2개의 index를 번갈아 활용하기 위해 다음 벌크색인용 index명을 구한다.
+     * currentIndexName 뒤에 "_1", "_2"를 이용하여 서비스중인 index가 아닌 index로 색인을 수행 하고자 한다.
+     * 예를들어, 현재index가 "index_1"이면 벌크 색인을 위한 index명은 "index_2"이다.
+     * 현재인덱스가 "index_2"이면 벌크색인을 위한 index명은 "index_1"이된다.
+     *
+     * @param aliasName
+     * @param defaultIndexName
+     * @return
+     */
     private String getNextIndexName(String aliasName, String defaultIndexName) {
         String currentIndexName = getIndexNameByAlias(aliasName);
 
@@ -115,15 +133,21 @@ public abstract class ZaadEsBulkRunner {
         }
     }
 
+    /**
+     * aliasName이 가진 실제 색인명을 획득한다.
+     *
+     * @param aliasName
+     * @return
+     */
     private String getIndexNameByAlias(String aliasName) {
-        GetAliasesResponse getAliasesResponse = client.getClient().admin().indices().getAliases(new GetAliasesRequest(aliasName)).actionGet();
+        GetAliasesResponse getAliasesResponse = client.getClient().admin().indices()
+                .getAliases(new GetAliasesRequest(aliasName)).actionGet();
         ImmutableOpenMap<String, List<AliasMetaData>> aliasMap = getAliasesResponse.getAliases();
 
-        if (aliasMap != null && !aliasMap.isEmpty()) {
-            return aliasMap.keys().iterator().next().value;
-        } else {
-            return null;
+        for (ObjectCursor<String> key : aliasMap.keys()) {
+            return key.value;
         }
+        return null;
     }
 
     /**
