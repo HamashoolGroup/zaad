@@ -17,6 +17,7 @@ import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class VideoEsBulkRunner extends ZaadEsBulkRunner {
@@ -30,7 +31,7 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
         logger = ZaadLogger.getLogger(VideoEsBulkRunner.class);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ZaadEsClient zaadEsClient = new ZaadEsTransportClient();
         VideoEsBulkRunner runner = new VideoEsBulkRunner(zaadEsClient);
         runner.bulk();
@@ -52,7 +53,7 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
     }
 
     @Override
-    protected void bulk() {
+    protected void bulk() throws FileNotFoundException {
         init();
 
         BulkRequestBuilder bulRequestBuilder = this.client.getClient().prepareBulk();

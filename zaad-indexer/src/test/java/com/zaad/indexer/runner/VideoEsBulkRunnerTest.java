@@ -1,7 +1,6 @@
 package com.zaad.indexer.runner;
 
 import com.zaad.indexer.transport.ZaadEsClient;
-import com.zaad.indexer.transport.ZaadEsTransportClient;
 import org.junit.Test;
 
 import java.io.File;
@@ -9,7 +8,7 @@ import java.io.File;
 public class VideoEsBulkRunnerTest extends AbstractBaseClientTest {
 
     @Test
-    public void test() {
+    public void test() throws Exception {
         ZaadEsClient zaadEsClient = new ZaadTestEsTransportClient(client());
         VideoEsBulkRunner videoEsBulkRunner = new VideoEsBulkRunner(zaadEsClient);
         videoEsBulkRunner.bulk();
