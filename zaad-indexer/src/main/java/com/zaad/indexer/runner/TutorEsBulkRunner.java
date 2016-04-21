@@ -3,15 +3,15 @@ package com.zaad.indexer.runner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaad.common.domain.Tutor;
 import com.zaad.common.exception.ZaadDomainCreationException;
-import com.zaad.common.util.ZaadLogger;
 import com.zaad.common.util.ZaadOutputDirectoryManager;
 import com.zaad.indexer.common.ZaadEsBulkRunner;
-import com.zaad.indexer.sitemap.TutorSitemapGenerator;
+import com.zaad.indexer.sitemap.TutorSiteMapGenerator;
 import com.zaad.indexer.transport.ZaadEsClient;
 import com.zaad.indexer.transport.ZaadEsTransportClient;
-import org.apache.log4j.Logger;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,25 +19,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author socurites, lks21c
+ */
 public class TutorEsBulkRunner extends ZaadEsBulkRunner {
+    /**
+     * 하나의 요청에 색인되는 벌크 단위
+     */
     protected static final int BULK_SIZE = 1000;
+
+    /**
+     * 색인이름
+     */
     private static final String INDEX_NAME = "tutor";
+
+    /**
+     * 타입이름
+     */
     private static final String TYPE_NAME = "detail";
 
-    private static Logger logger;
-
-    static {
-        logger = ZaadLogger.getLogger(TutorEsBulkRunner.class);
-    }
+    /**
+     * 로거
+     */
+    private static Logger logger = LoggerFactory.getLogger(TutorEsBulkRunner.class);
 
     public static void main(String[] args) {
         ZaadEsClient zaadEsClient = new ZaadEsTransportClient();
         TutorEsBulkRunner runner = new TutorEsBulkRunner(zaadEsClient);
         runner.bulk();
-    }
-
-    public TutorEsBulkRunner() {
-
     }
 
     public TutorEsBulkRunner(ZaadEsClient zaadEsClient) {
@@ -54,12 +63,10 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
     @Override
     protected void bulk() {
         init();
-
         BulkRequestBuilder bulRequestBuilder = this.client.getClient().prepareBulk();
-
         List<String> tutorIds = ZaadOutputDirectoryManager.getDataTutorIds();
         ObjectMapper mapper = new ObjectMapper();
-        TutorSitemapGenerator sitemapGenerator = new TutorSitemapGenerator();
+        TutorSiteMapGenerator siteMapGenerator = new TutorSiteMapGenerator();
         for (String tutorId : tutorIds) {
             try {
                 Tutor tutor = readTutor(tutorId);
@@ -69,7 +76,7 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
                             .setSource(mapper.writeValueAsString(tutor))
                     );
 
-                    sitemapGenerator.appendUrl(tutor);
+                    siteMapGenerator.appendUrl(tutor);
                 }
 
                 if (bulRequestBuilder.numberOfActions() > BULK_SIZE) {
@@ -96,7 +103,7 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
             }
         }
 
-        sitemapGenerator.close();
+        siteMapGenerator.close();
 
         beforeExit(newIndexName, newIndexName, aliasName);
     }

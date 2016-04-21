@@ -39,7 +39,6 @@ public abstract class ZaadEsBulkRunner {
     protected void init() {
         this.defaultIndexName = ZaadEsNamingManager.getDefaultIndexName(this.getIndexName());
         this.aliasName = ZaadEsNamingManager.getIndexAliasName(this.getIndexName());
-
         this.newIndexName = createIndex(this.indexName, this.typeName, this.defaultIndexName, this.aliasName);
     }
 

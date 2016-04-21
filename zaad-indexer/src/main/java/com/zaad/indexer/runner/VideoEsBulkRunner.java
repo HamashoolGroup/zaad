@@ -56,15 +56,13 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
     protected void bulk() throws FileNotFoundException {
         init();
 
-        BulkRequestBuilder bulRequestBuilder = this.client.getClient().prepareBulk();
+        BulkRequestBuilder bulkRequestBuilder = this.client.getClient().prepareBulk();
 
         List<String> tutorPlaylistVideoIds = ZaadOutputDirectoryManager.getDataVideoIds();
         ObjectMapper mapper = new ObjectMapper();
         String line;
         Scanner scanner = null;
-        String tutorId;
-        String playlistId;
-        String videoId;
+        String tutorId, playlistId, videoId;
         VideoSiteMapGenerator siteMapGenerator = new VideoSiteMapGenerator();
         Playlist playlist;
         for (String tutorPlaylistVideoId : tutorPlaylistVideoIds) {
@@ -122,21 +120,19 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
                 }
 
                 if (video != null) {
-                    bulRequestBuilder.add(client.getClient().prepareIndex(newIndexName, typeName, video.getZaadId())
+                    bulkRequestBuilder.add(client.getClient().prepareIndex(newIndexName, typeName, video.getZaadId())
                             .setSource(mapper.writeValueAsString(video))
                     );
-
                     siteMapGenerator.appendUrl(video);
                 }
 
-                if (bulRequestBuilder.numberOfActions() > BULK_SIZE) {
-                    BulkResponse bulkResponse = bulRequestBuilder.execute().actionGet();
-
+                if (bulkRequestBuilder.numberOfActions() > BULK_SIZE) {
+                    BulkResponse bulkResponse = bulkRequestBuilder.execute().actionGet();
                     if (bulkResponse.hasFailures()) {
+                        logger.error("buildFailureMessage = " + bulkResponse.buildFailureMessage());
                         // TODO: do something
                     }
-
-                    bulRequestBuilder = this.client.getClient().prepareBulk();
+                    bulkRequestBuilder = this.client.getClient().prepareBulk();
                 }
 
             } catch (Exception e) {
@@ -145,22 +141,16 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
             } finally {
                 scanner.close();
             }
-
-
         }
 
-        if (bulRequestBuilder.numberOfActions() > 0) {
-            BulkResponse bulkResponse = bulRequestBuilder.execute().actionGet();
-
+        if (bulkRequestBuilder.numberOfActions() > 0) {
+            BulkResponse bulkResponse = bulkRequestBuilder.execute().actionGet();
             if (bulkResponse.hasFailures()) {
+                logger.error("buildFailureMessage = " + bulkResponse.buildFailureMessage());
                 // TODO: do something
             }
         }
-
         siteMapGenerator.close();
-
         beforeExit(newIndexName, newIndexName, aliasName);
     }
-
-
 }

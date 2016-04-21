@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TutorSitemapGenerator {
+public class TutorSiteMapGenerator {
 	private static final String SITEMAP_FILE_NAME = "sitemap_tutor.xml";
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
@@ -18,8 +18,8 @@ public class TutorSitemapGenerator {
 	private static final String LAST_MOD = sdf.format(date);
 	
 	private PrintWriter pw;
-	
-	public TutorSitemapGenerator() {
+
+	public TutorSiteMapGenerator() {
 		ZaadProperties.loadProperties(
 				ZaadEsTransportClientRunner.class.getClassLoader().getResourceAsStream(
 						"zaad.properties"));
