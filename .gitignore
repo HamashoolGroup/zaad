@@ -4,3 +4,6 @@
 .project
 .settings/
 zaad-indexer/src/main/resources/zaad.properties
+zaad-indexer/src/main/resources/log4j.properties
+
+
