@@ -1,5 +1,8 @@
 package com.zaad.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,8 +54,10 @@ public class ZaadOutputDirectoryManager {
 	public static final String SEED_FILE_NAME = "seed.txt"; 
 	
 	public static final String VIDEO_DIR_PREFIX = "V";
-	
-	static {
+
+    private static Logger logger = LoggerFactory.getLogger(ZaadOutputDirectoryManager.class);
+
+    static {
         ZaadProperties.loadProperties(
                 ZaadOutputDirectoryManager.class.getClassLoader().getResourceAsStream(
                         "zaad.properties"));
@@ -115,8 +120,10 @@ public class ZaadOutputDirectoryManager {
 	
 	private static List<String> getTutorIds(String pathPrefix) {
 		String path = pathPrefix ;
+        logger.info("tutor pathPre~fix = " + path);
+
 		File directory = new File(path);
-		
+
 		File[] files = directory.listFiles();
 		List<String> items = new ArrayList<String>();
 		for ( File file : files ) {
@@ -187,6 +194,7 @@ public class ZaadOutputDirectoryManager {
 	}
 	
 	public static List<String> getDataVideoIds() {
+		System.out.println("CRAWL_ROOT_DATA_PATH = " + CRAWL_ROOT_DATA_PATH);
 		return getVideoIds(CRAWL_ROOT_DATA_PATH);
 	}
 }

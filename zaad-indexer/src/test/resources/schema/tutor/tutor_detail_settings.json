@@ -1,0 +1,27 @@
+{
+   "number_of_shards": 1,
+   "number_of_replicas": 1,
+   "refresh_interval": "60s",
+   "_source" : {
+     "enabled" : "true"
+    },
+     "_all" : {
+     "enabled" : "false"
+    },
+     "index" : {
+	     "analysis" : {
+	         "analyzer" : {
+	             "zaad_keyword_analyzer" : {
+	                 "type":      "custom",
+	                 "tokenizer": "keyword",
+	                 "filter" :   ["lowercase"]
+	             },
+	             "zaad_standard_analyzer" : {
+	                 "type":      "custom",
+	                 "tokenizer": "standard",
+	                 "filter" :   ["lowercase", "stop"]
+	             }
+	         }
+		}
+	}
+}

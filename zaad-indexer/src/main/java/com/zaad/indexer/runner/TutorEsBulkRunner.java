@@ -14,6 +14,7 @@ import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -102,8 +103,12 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
 
     public static Tutor readTutor(String tutorId) throws Exception {
         File tutorDataFile = ZaadOutputDirectoryManager.getTutorDataFile(tutorId);
+        if (!tutorDataFile.exists()) {
+            throw new FileNotFoundException("tutorDataFile not found");
+        }
+
         Scanner scanner = null;
-        String line = null;
+        String line;
         Tutor tutor = null;
         try {
             scanner = new Scanner(tutorDataFile);
@@ -126,7 +131,9 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
             logger.error(tutorId);
             throw e;
         } finally {
-            scanner.close();
+            if (scanner != null) {
+                scanner.close();
+            }
         }
 
         return tutor;
