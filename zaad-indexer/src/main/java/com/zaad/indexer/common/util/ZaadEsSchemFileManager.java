@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
 public class ZaadEsSchemFileManager {
@@ -42,6 +43,7 @@ public class ZaadEsSchemFileManager {
     public static String readTypeMapping(String indexName, String typeName) {
         StringBuffer sb = new StringBuffer();
         logger.info("getMappingPath = " + getMappingsPath(indexName, typeName));
+
         InputStream in = ZaadEsSchemFileManager.class.getClassLoader().getResourceAsStream(getMappingsPath(indexName, typeName));
         if (in == null) {
             throw new NullPointerException("input stream null");
@@ -54,7 +56,9 @@ public class ZaadEsSchemFileManager {
                 sb.append(scanner.nextLine());
             }
         } finally {
-            scanner.close();
+            if (scanner != null) {
+                scanner.close();
+            }
         }
         logger.info("mapping : " + "\n" + sb.toString());
         return sb.toString();
