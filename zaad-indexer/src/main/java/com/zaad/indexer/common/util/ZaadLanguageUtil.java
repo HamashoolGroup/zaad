@@ -1,5 +1,10 @@
 package com.zaad.indexer.common.util;
 
+/**
+ * 문자열이 영어인지 확인하는 유틸 클래스.
+ *
+ * @author socurites
+ */
 public class ZaadLanguageUtil {
 	public static boolean isLangEnglish(String title) {
 		boolean isEnglish = true; 
