@@ -8,8 +8,13 @@ import com.zaad.indexer.common.ZaadEsBulkRunner;
 import com.zaad.indexer.sitemap.TutorSiteMapGenerator;
 import com.zaad.indexer.transport.ZaadEsClient;
 import com.zaad.indexer.transport.ZaadEsTransportClient;
-import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkProcessor;
+import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.common.unit.ByteSizeUnit;
+import org.elasticsearch.common.unit.ByteSizeValue;
+import org.elasticsearch.common.unit.TimeValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author socurites, lks21c
@@ -43,7 +49,7 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
      */
     private static Logger logger = LoggerFactory.getLogger(TutorEsBulkRunner.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ZaadEsClient zaadEsClient = new ZaadEsTransportClient();
         TutorEsBulkRunner runner = new TutorEsBulkRunner(zaadEsClient);
         runner.bulk();
@@ -61,32 +67,28 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
     }
 
     @Override
-    protected void bulk() {
+    protected void bulk() throws InterruptedException {
         init();
-        BulkRequestBuilder bulRequestBuilder = this.client.getClient().prepareBulk();
-        List<String> tutorIds = ZaadOutputDirectoryManager.getDataTutorIds();
+
+        // 벌크 프로세서 설정
+        BulkProcessor processor = BulkProcessor.builder(this.client.getClient(), listener).setConcurrentRequests(1).setBulkActions(1)
+                .setFlushInterval(TimeValue.timeValueMillis(5000)).setBulkSize(new ByteSizeValue(50, ByteSizeUnit.MB))
+                .build();
+
+
         ObjectMapper mapper = new ObjectMapper();
         TutorSiteMapGenerator siteMapGenerator = new TutorSiteMapGenerator();
+
+        List<String> tutorIds = ZaadOutputDirectoryManager.getDataTutorIds();
         for (String tutorId : tutorIds) {
             try {
                 Tutor tutor = readTutor(tutorId);
-
                 if (tutor != null) {
-                    bulRequestBuilder.add(client.getClient().prepareIndex(newIndexName, typeName, tutor.getTutorId())
-                            .setSource(mapper.writeValueAsString(tutor))
-                    );
 
+                    IndexRequestBuilder builder = this.client.getClient().prepareIndex(newIndexName, typeName).setId(tutor.getTutorId())
+                            .setSource(mapper.writeValueAsString(tutor));
+                    processor.add(builder.request());
                     siteMapGenerator.appendUrl(tutor);
-                }
-
-                if (bulRequestBuilder.numberOfActions() > BULK_SIZE) {
-                    BulkResponse bulkResponse = bulRequestBuilder.execute().actionGet();
-
-                    if (bulkResponse.hasFailures()) {
-                        // TODO: do something
-                    }
-
-                    bulRequestBuilder = this.client.getClient().prepareBulk();
                 }
 
             } catch (Exception e) {
@@ -95,16 +97,19 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
 
         }
 
-        if (bulRequestBuilder.numberOfActions() > 0) {
-            BulkResponse bulkResponse = bulRequestBuilder.execute().actionGet();
+        // Flush
+        processor.flush();
 
-            if (bulkResponse.hasFailures()) {
-                // TODO: do something
-            }
-        }
+        // Close
+        processor.awaitClose(5, TimeUnit.SECONDS);
+
 
         siteMapGenerator.close();
 
+        /**
+         * 1. alias 변경행
+         * 2. 색인 refresh 수
+         */
         beforeExit(newIndexName, newIndexName, aliasName);
     }
 
@@ -145,4 +150,24 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
 
         return tutor;
     }
+
+    // 벌크 색인 리스너 설정
+    BulkProcessor.Listener listener = new BulkProcessor.Listener() {
+        @Override
+        public void beforeBulk(long executionId, BulkRequest request) {
+
+        }
+
+        @Override
+        public void afterBulk(long executionId, BulkRequest request, BulkResponse response) {
+            logger.info("response.getItems()[0].getId() = " + response.getItems()[0].getId());
+        }
+
+        @Override
+        public void afterBulk(long executionId, BulkRequest request, Throwable failure) {
+            logger.error("fail");
+            logger.error(failure.getMessage());
+        }
+    };
+
 }

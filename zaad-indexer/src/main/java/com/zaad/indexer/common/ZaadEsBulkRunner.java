@@ -42,7 +42,7 @@ public abstract class ZaadEsBulkRunner {
         this.newIndexName = createIndex(this.indexName, this.typeName, this.defaultIndexName, this.aliasName);
     }
 
-    protected abstract void bulk() throws FileNotFoundException;
+    protected abstract void bulk() throws FileNotFoundException, InterruptedException;
 
     protected String createIndex(String indexName, String typeName, String defaultIndexName, String aliasName) {
         String nextIndexName = getNextIndexName(aliasName, defaultIndexName);
