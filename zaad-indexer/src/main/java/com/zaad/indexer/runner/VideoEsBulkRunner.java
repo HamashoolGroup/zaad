@@ -100,12 +100,6 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
                     }
 
                     playlist = PlaylistEsBulkRunner.readPlaylist(tutorId + "/" + playlistId);
-
-                    if (playlist == null) {
-                        System.out.println("playlist null");
-                        break;
-                    }
-
                     video.setPlaylist(playlist);
                     video.addCategories(playlist.getCategories());
                     video.addSections(playlist.getSections());
@@ -113,7 +107,6 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
                     video.addTags(playlist.getTags());
                     video.addContinentals(playlist.getContinentals());
                     video.addLevels(playlist.getLevels());
-
                     video.calcRanking();
                 } catch (ZaadDomainCreationException e) {
                     logger.error(e.getMessage() + " for: " + tutorPlaylistVideoId);

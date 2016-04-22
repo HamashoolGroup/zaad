@@ -85,7 +85,7 @@ public abstract class ZaadEsBulkRunner {
         this.newIndexName = createIndex(this.indexName, this.typeName, this.defaultIndexName, this.aliasName);
         processor = BulkProcessor.builder(this.client.getClient(), listener)
                 .setBackoffPolicy(BackoffPolicy.noBackoff())
-                .setConcurrentRequests(0)
+                .setConcurrentRequests(1)
                 .setBulkActions(BULK_SIZE)
                 .setBulkSize(new ByteSizeValue(5, ByteSizeUnit.MB))
                 .build();
