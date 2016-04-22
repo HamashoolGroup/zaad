@@ -8,13 +8,7 @@ import com.zaad.indexer.common.ZaadEsBulkRunner;
 import com.zaad.indexer.sitemap.TutorSiteMapGenerator;
 import com.zaad.indexer.transport.ZaadEsClient;
 import com.zaad.indexer.transport.ZaadEsTransportClient;
-import org.elasticsearch.action.bulk.BulkProcessor;
-import org.elasticsearch.action.bulk.BulkRequest;
-import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
-import org.elasticsearch.common.unit.ByteSizeUnit;
-import org.elasticsearch.common.unit.ByteSizeValue;
-import org.elasticsearch.common.unit.TimeValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +24,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class TutorEsBulkRunner extends ZaadEsBulkRunner {
     /**
-     * 하나의 요청에 색인되는 벌크 단위
+     * 로거
      */
-    protected static final int BULK_SIZE = 1000;
+    private static Logger logger = LoggerFactory.getLogger(TutorEsBulkRunner.class);
+
 
     /**
      * 색인이름
@@ -43,11 +38,6 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
      * 타입이름
      */
     private static final String TYPE_NAME = "detail";
-
-    /**
-     * 로거
-     */
-    private static Logger logger = LoggerFactory.getLogger(TutorEsBulkRunner.class);
 
     public static void main(String[] args) throws InterruptedException {
         ZaadEsClient zaadEsClient = new ZaadEsTransportClient();
@@ -70,12 +60,6 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
     protected void bulk() throws InterruptedException {
         init();
 
-        // 벌크 프로세서 설정
-        BulkProcessor processor = BulkProcessor.builder(this.client.getClient(), listener).setConcurrentRequests(1).setBulkActions(1)
-                .setFlushInterval(TimeValue.timeValueMillis(5000)).setBulkSize(new ByteSizeValue(50, ByteSizeUnit.MB))
-                .build();
-
-
         ObjectMapper mapper = new ObjectMapper();
         TutorSiteMapGenerator siteMapGenerator = new TutorSiteMapGenerator();
 
@@ -84,10 +68,13 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
             try {
                 Tutor tutor = readTutor(tutorId);
                 if (tutor != null) {
-
-                    IndexRequestBuilder builder = this.client.getClient().prepareIndex(newIndexName, typeName).setId(tutor.getTutorId())
-                            .setSource(mapper.writeValueAsString(tutor));
+                    IndexRequestBuilder builder = this.client.getClient()
+                            .prepareIndex(newIndexName, typeName) // 인덱스명 설정
+                            .setId(tutor.getTutorId()) // 색인ID 설정
+                            .setSource(mapper.writeValueAsString(tutor)); // 소스 설정
+                    // 벌크 프로세서에 추가
                     processor.add(builder.request());
+                    // 사이트맵에 주소 추가
                     siteMapGenerator.appendUrl(tutor);
                 }
 
@@ -96,19 +83,17 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
             }
 
         }
-
-        // Flush
-        processor.flush();
-
-        // Close
-        processor.awaitClose(5, TimeUnit.SECONDS);
-
-
         siteMapGenerator.close();
 
+        // 벌크 색인 시작
+        processor.flush();
+
+        // 벌크 색인 종료를 기다림
+        processor.awaitClose(10, TimeUnit.MINUTES);
+
         /**
-         * 1. alias 변경행
-         * 2. 색인 refresh 수
+         * 1. alias 변경
+         * 2. 색인 refresh
          */
         beforeExit(newIndexName, newIndexName, aliasName);
     }
@@ -150,24 +135,4 @@ public class TutorEsBulkRunner extends ZaadEsBulkRunner {
 
         return tutor;
     }
-
-    // 벌크 색인 리스너 설정
-    BulkProcessor.Listener listener = new BulkProcessor.Listener() {
-        @Override
-        public void beforeBulk(long executionId, BulkRequest request) {
-
-        }
-
-        @Override
-        public void afterBulk(long executionId, BulkRequest request, BulkResponse response) {
-            logger.info("response.getItems()[0].getId() = " + response.getItems()[0].getId());
-        }
-
-        @Override
-        public void afterBulk(long executionId, BulkRequest request, Throwable failure) {
-            logger.error("fail");
-            logger.error(failure.getMessage());
-        }
-    };
-
 }

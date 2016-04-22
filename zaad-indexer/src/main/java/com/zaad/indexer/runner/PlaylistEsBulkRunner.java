@@ -3,46 +3,40 @@ package com.zaad.indexer.runner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaad.common.domain.Playlist;
 import com.zaad.common.exception.ZaadDomainCreationException;
-import com.zaad.common.util.ZaadLogger;
 import com.zaad.common.util.ZaadOutputDirectoryManager;
 import com.zaad.indexer.common.ZaadEsBulkRunner;
 import com.zaad.indexer.common.util.ZaadLanguageUtil;
 import com.zaad.indexer.transport.ZaadEsClient;
 import com.zaad.indexer.transport.ZaadEsTransportClient;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.bulk.BulkRequestBuilder;
-import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
+/**
+ * @author socurites, lks21c
+ */
 public class PlaylistEsBulkRunner extends ZaadEsBulkRunner {
-    protected static final int BULK_SIZE = 1000;
+    /**
+     * 로거
+     */
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(TutorEsBulkRunner.class);
+
     private static final String INDEX_NAME = "playlist";
     private static final String TYPE_NAME = "detail";
 
-    private static Logger logger;
-
-    static {
-        logger = ZaadLogger.getLogger(PlaylistEsBulkRunner.class);
-    }
-
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ZaadEsClient zaadEsClient = new ZaadEsTransportClient();
         PlaylistEsBulkRunner runner = new PlaylistEsBulkRunner(zaadEsClient);
         runner.bulk();
     }
 
-    public PlaylistEsBulkRunner() {
-
-    }
-
     public PlaylistEsBulkRunner(ZaadEsClient zaadEsClient) {
         this.client = zaadEsClient;
     }
-
 
     @Override
     protected void init() {
@@ -52,53 +46,45 @@ public class PlaylistEsBulkRunner extends ZaadEsBulkRunner {
     }
 
     @Override
-    protected void bulk() {
+    protected void bulk() throws InterruptedException {
         init();
 
-        BulkRequestBuilder bulRequestBuilder = this.client.getClient().prepareBulk();
+        ObjectMapper mapper = new ObjectMapper();
 
         List<String> tutorPlaylistIds = ZaadOutputDirectoryManager.getDataPlaylistIds();
-        ObjectMapper mapper = new ObjectMapper();
         for (String tutorPlaylistId : tutorPlaylistIds) {
             try {
                 Playlist playlist = readPlaylist(tutorPlaylistId);
 
                 if (playlist != null) {
-                    bulRequestBuilder.add(client.getClient().prepareIndex(newIndexName, typeName, playlist.getPlaylistId())
-                            .setSource(mapper.writeValueAsString(playlist))
-                    );
+                    IndexRequestBuilder builder = this.client.getClient()
+                            .prepareIndex(newIndexName, typeName) // 인덱스명 설정
+                            .setId(playlist.getPlaylistId()) // 색인ID 설정
+                            .setSource(mapper.writeValueAsString(playlist)); // 소스 설정
+
+                    // 벌크 프로세서에 추가
+                    processor.add(builder.request());
                 }
-
-                if (bulRequestBuilder.numberOfActions() > BULK_SIZE) {
-                    BulkResponse bulkResponse = bulRequestBuilder.execute().actionGet();
-
-                    if (bulkResponse.hasFailures()) {
-                        // TODO: do something
-                    }
-
-                    bulRequestBuilder = this.client.getClient().prepareBulk();
-                }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
 
-        if (bulRequestBuilder.numberOfActions() > 0) {
-            BulkResponse bulkResponse = bulRequestBuilder.execute().actionGet();
+        // 벌크 색인 시작
+        processor.flush();
 
-            if (bulkResponse.hasFailures()) {
-                // TODO: do something
-            }
-        }
+        // 벌크 색인 종료를 기다림
+        processor.awaitClose(10, TimeUnit.MINUTES);
 
+        /**
+         * 1. alias 변경
+         * 2. 색인 refresh
+         */
         beforeExit(newIndexName, newIndexName, aliasName);
     }
 
     public static Playlist readPlaylist(String tutorPlaylistId) throws Exception {
-        String line = null;
+        String line;
         Scanner scanner = null;
         String tutorId = StringUtils.split(tutorPlaylistId, "/")[0];
         String playlistId = StringUtils.split(tutorPlaylistId, "/")[1];

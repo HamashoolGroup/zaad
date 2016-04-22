@@ -3,6 +3,7 @@ package com.zaad.indexer.common;
 import com.carrotsearch.hppc.cursors.ObjectCursor;
 import com.zaad.indexer.common.util.ZaadEsNamingManager;
 import com.zaad.indexer.common.util.ZaadEsSchemFileManager;
+import com.zaad.indexer.runner.TutorEsBulkRunner;
 import com.zaad.indexer.transport.ZaadEsClient;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.admin.indices.alias.get.GetAliasesRequest;
@@ -12,10 +13,17 @@ import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.admin.indices.refresh.RefreshRequest;
+import org.elasticsearch.action.bulk.BulkProcessor;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.cluster.metadata.AliasMetaData;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.settings.SettingsException;
+import org.elasticsearch.common.unit.ByteSizeUnit;
+import org.elasticsearch.common.unit.ByteSizeValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -28,6 +36,11 @@ import java.util.List;
  * @author socurites, lks21c
  */
 public abstract class ZaadEsBulkRunner {
+    /**
+     * 로거
+     */
+    private static Logger logger = LoggerFactory.getLogger(TutorEsBulkRunner.class);
+
     protected String indexName;
     protected String typeName;
     protected String defaultIndexName;
@@ -36,10 +49,44 @@ public abstract class ZaadEsBulkRunner {
 
     protected ZaadEsClient client;
 
+    /**
+     * 하나의 요청에 색인되는 벌크 단위
+     */
+    protected static final int BULK_SIZE = 1000;
+
+    // 벌크 색인 리스너 설정
+    protected BulkProcessor.Listener listener = new BulkProcessor.Listener() {
+        @Override
+        public void beforeBulk(long executionId, BulkRequest request) {
+
+        }
+
+        // 성공시
+        @Override
+        public void afterBulk(long executionId, BulkRequest request, BulkResponse response) {
+            logger.info("response.getItems()[0].getId() = " + response.getItems()[0].getId());
+        }
+
+        // 실패시
+        @Override
+        public void afterBulk(long executionId, BulkRequest request, Throwable failure) {
+            logger.error("fail");
+            logger.error(failure.getMessage());
+        }
+    };
+
+    // 벌크 프로세서 설정
+    protected BulkProcessor processor;
+
     protected void init() {
         this.defaultIndexName = ZaadEsNamingManager.getDefaultIndexName(this.getIndexName());
         this.aliasName = ZaadEsNamingManager.getIndexAliasName(this.getIndexName());
         this.newIndexName = createIndex(this.indexName, this.typeName, this.defaultIndexName, this.aliasName);
+        processor = BulkProcessor.builder(this.client.getClient(), listener)
+                .setConcurrentRequests(1)
+                .setBulkActions(BULK_SIZE)
+                .setBulkSize(new ByteSizeValue(5, ByteSizeUnit.MB))
+                .build();
     }
 
     protected abstract void bulk() throws FileNotFoundException, InterruptedException;

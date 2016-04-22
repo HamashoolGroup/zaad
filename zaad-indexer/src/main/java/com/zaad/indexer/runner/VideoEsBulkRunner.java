@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaad.common.domain.Playlist;
 import com.zaad.common.domain.Video;
 import com.zaad.common.exception.ZaadDomainCreationException;
-import com.zaad.common.util.ZaadLogger;
 import com.zaad.common.util.ZaadOutputDirectoryManager;
 import com.zaad.indexer.common.ZaadEsBulkRunner;
 import com.zaad.indexer.common.util.ZaadLanguageUtil;
@@ -12,24 +11,25 @@ import com.zaad.indexer.sitemap.VideoSiteMapGenerator;
 import com.zaad.indexer.transport.ZaadEsClient;
 import com.zaad.indexer.transport.ZaadEsTransportClient;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.elasticsearch.action.bulk.BulkRequestBuilder;
-import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
+/**
+ * @author socurites, lks21c
+ */
 public class VideoEsBulkRunner extends ZaadEsBulkRunner {
-    protected static final int BULK_SIZE = 1000;
+    /**
+     * 로거
+     */
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(TutorEsBulkRunner.class);
+
     private static final String INDEX_NAME = "video";
     private static final String TYPE_NAME = "detail";
-
-    private static Logger logger;
-
-    static {
-        logger = ZaadLogger.getLogger(VideoEsBulkRunner.class);
-    }
 
     public static void main(String[] args) throws Exception {
         ZaadEsClient zaadEsClient = new ZaadEsTransportClient();
@@ -37,13 +37,9 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
         runner.bulk();
     }
 
-    public VideoEsBulkRunner() {
-    }
-
     public VideoEsBulkRunner(ZaadEsClient zaadEsClient) {
         this.client = zaadEsClient;
     }
-
 
     @Override
     protected void init() {
@@ -53,18 +49,17 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
     }
 
     @Override
-    protected void bulk() throws FileNotFoundException {
+    protected void bulk() throws FileNotFoundException, InterruptedException {
         init();
 
-        BulkRequestBuilder bulkRequestBuilder = this.client.getClient().prepareBulk();
-
-        List<String> tutorPlaylistVideoIds = ZaadOutputDirectoryManager.getDataVideoIds();
         ObjectMapper mapper = new ObjectMapper();
+        VideoSiteMapGenerator siteMapGenerator = new VideoSiteMapGenerator();
         String line;
         Scanner scanner = null;
         String tutorId, playlistId, videoId;
-        VideoSiteMapGenerator siteMapGenerator = new VideoSiteMapGenerator();
         Playlist playlist;
+
+        List<String> tutorPlaylistVideoIds = ZaadOutputDirectoryManager.getDataVideoIds();
         for (String tutorPlaylistVideoId : tutorPlaylistVideoIds) {
             tutorId = StringUtils.split(tutorPlaylistVideoId, "/")[0];
             playlistId = StringUtils.split(tutorPlaylistVideoId, "/")[1];
@@ -83,7 +78,7 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
 
                 Video video = null;
                 try {
-                    video = new Video(logger, lines, tutorId, playlistId, videoId);
+                    video = new Video(lines, tutorId, playlistId, videoId);
 
                     if (!ZaadLanguageUtil.isLangEnglish(video.getTitle())) {
                         video = null;
@@ -120,21 +115,14 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
                 }
 
                 if (video != null) {
-                    bulkRequestBuilder.add(client.getClient().prepareIndex(newIndexName, typeName, video.getZaadId())
-                            .setSource(mapper.writeValueAsString(video))
-                    );
+                    IndexRequestBuilder builder = this.client.getClient()
+                            .prepareIndex(newIndexName, typeName) // 인덱스명 설정
+                            .setId(video.getZaadId()) // 색인ID 설정
+                            .setSource(mapper.writeValueAsString(mapper.writeValueAsString(video))); // 소스 설정
+                    // 벌크 프로세서에 추가
+                    processor.add(builder.request());
                     siteMapGenerator.appendUrl(video);
                 }
-
-                if (bulkRequestBuilder.numberOfActions() > BULK_SIZE) {
-                    BulkResponse bulkResponse = bulkRequestBuilder.execute().actionGet();
-                    if (bulkResponse.hasFailures()) {
-                        logger.error("buildFailureMessage = " + bulkResponse.buildFailureMessage());
-                        // TODO: do something
-                    }
-                    bulkRequestBuilder = this.client.getClient().prepareBulk();
-                }
-
             } catch (Exception e) {
                 System.out.println(tutorPlaylistVideoId);
                 e.printStackTrace();
@@ -142,15 +130,18 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
                 scanner.close();
             }
         }
-
-        if (bulkRequestBuilder.numberOfActions() > 0) {
-            BulkResponse bulkResponse = bulkRequestBuilder.execute().actionGet();
-            if (bulkResponse.hasFailures()) {
-                logger.error("buildFailureMessage = " + bulkResponse.buildFailureMessage());
-                // TODO: do something
-            }
-        }
         siteMapGenerator.close();
+
+        // 벌크 색인 시작
+        processor.flush();
+
+        // 벌크 색인 종료를 기다림
+        processor.awaitClose(10, TimeUnit.MINUTES);
+
+        /**
+         * 1. alias 변경
+         * 2. 색인 refresh
+         */
         beforeExit(newIndexName, newIndexName, aliasName);
     }
 }
