@@ -13,6 +13,6 @@ public class PlaylistEsBulkRunnerTest extends AbstractBaseClientTest {
         playlistEsBulkRunner.bulk();
 
         SearchResponse searchResponse = client().prepareSearch("playlist_p").setTypes("detail").get();
-        System.out.println(searchResponse.toString());
+        System.out.println("total hit = " + searchResponse.getHits().totalHits());
     }
 }
