@@ -101,6 +101,12 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
                     }
 
                     playlist = PlaylistEsBulkRunner.readPlaylist(tutorId + "/" + playlistId);
+
+                    if (playlist == null) {
+                        System.out.println("playlist null");
+                        break;
+                    }
+
                     video.setPlaylist(playlist);
                     video.addCategories(playlist.getCategories());
                     video.addSections(playlist.getSections());

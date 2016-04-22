@@ -64,14 +64,14 @@ public abstract class ZaadEsBulkRunner {
         // 성공시
         @Override
         public void afterBulk(long executionId, BulkRequest request, BulkResponse response) {
-            logger.info("response.getItems()[0].getId() = " + response.getItems()[0].getId());
+            System.out.println("response.getItems()[0].getId() = " + response.getItems()[0].getId());
         }
 
         // 실패시
         @Override
         public void afterBulk(long executionId, BulkRequest request, Throwable failure) {
-            logger.error("fail");
-            logger.error(failure.getMessage());
+            System.out.println("fail");
+            System.out.println(failure.getMessage());
         }
     };
 
