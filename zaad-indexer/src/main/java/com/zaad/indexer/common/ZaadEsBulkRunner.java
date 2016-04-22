@@ -13,6 +13,7 @@ import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.admin.indices.refresh.RefreshRequest;
+import org.elasticsearch.action.bulk.BackoffPolicy;
 import org.elasticsearch.action.bulk.BulkProcessor;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -83,6 +84,7 @@ public abstract class ZaadEsBulkRunner {
         this.aliasName = ZaadEsNamingManager.getIndexAliasName(this.getIndexName());
         this.newIndexName = createIndex(this.indexName, this.typeName, this.defaultIndexName, this.aliasName);
         processor = BulkProcessor.builder(this.client.getClient(), listener)
+                .setBackoffPolicy(BackoffPolicy.noBackoff())
                 .setConcurrentRequests(0)
                 .setBulkActions(BULK_SIZE)
                 .setBulkSize(new ByteSizeValue(5, ByteSizeUnit.MB))
