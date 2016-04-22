@@ -16,6 +16,7 @@ public class VideoEsBulkRunnerTest extends AbstractBaseClientTest {
 
         SearchResponse searchResponse = client().prepareSearch("video_p").setTypes("detail").get();
         System.out.println("total hit = " + searchResponse.getHits().totalHits());
+
         assertTrue(searchResponse.getHits().totalHits() > 0);
     }
 

@@ -123,7 +123,7 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
                     IndexRequestBuilder builder = this.client.getClient()
                             .prepareIndex(newIndexName, typeName) // 인덱스명 설정
                             .setId(video.getZaadId()) // 색인ID 설정
-                            .setSource(mapper.writeValueAsString(mapper.writeValueAsString(video))); // 소스 설정
+                            .setSource(mapper.writeValueAsString(video)); // 소스 설정
                     // 벌크 프로세서에 추가
                     processor.add(builder.request());
                     siteMapGenerator.appendUrl(video);
@@ -134,6 +134,7 @@ public class VideoEsBulkRunner extends ZaadEsBulkRunner {
             } finally {
                 scanner.close();
             }
+
         }
         siteMapGenerator.close();
 
