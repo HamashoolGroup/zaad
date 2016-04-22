@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author socurites, lks21c
@@ -70,11 +69,12 @@ public class PlaylistEsBulkRunner extends ZaadEsBulkRunner {
             }
         }
 
-        // 벌크 색인 시작
-        processor.flush();
+        // awaitClose시에 벌크 색인을 종료하기 전에 남아있는 색인 요청(BULK_SIZE보다 적은 요청)이 추가로 색인 실행
+        // processor.awaitClose(..) 호출시 내부적으로 호출되므로 주석 처리함.
+        //processor.flush();
 
         // 벌크 색인 종료를 기다림
-        processor.awaitClose(10, TimeUnit.MINUTES);
+        processor.close();
 
         /**
          * 1. alias 변경
