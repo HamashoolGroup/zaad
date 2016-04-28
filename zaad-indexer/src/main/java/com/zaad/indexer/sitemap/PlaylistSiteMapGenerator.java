@@ -1,22 +1,21 @@
 package com.zaad.indexer.sitemap;
 
-import com.zaad.common.domain.Playlist;
-import com.zaad.common.domain.Tutor;
-import com.zaad.common.util.ZaadProperties;
-import com.zaad.indexer.transport.ZaadEsTransportClientRunner;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.zaad.common.domain.Playlist;
+import com.zaad.common.util.ZaadProperties;
+import com.zaad.indexer.transport.ZaadEsTransportClientRunner;
+
 public class PlaylistSiteMapGenerator {
 	private static final String SITEMAP_FILE_NAME = "sitemap_playlist.xml";
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	private static final Date date = new Date();
-	private static final String LAST_MOD = sdf.format(date);
+	private static final String LAST_MOD = sdf.format(date) + "+09:00";
 	
 	private PrintWriter pw;
 

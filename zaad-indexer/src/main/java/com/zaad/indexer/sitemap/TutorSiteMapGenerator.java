@@ -15,7 +15,7 @@ public class TutorSiteMapGenerator {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	private static final Date date = new Date();
-	private static final String LAST_MOD = sdf.format(date);
+	private static final String LAST_MOD = sdf.format(date) + "+09:00";
 	
 	private PrintWriter pw;
 
