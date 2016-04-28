@@ -30,6 +30,12 @@
 							<div>
 								<span id="tags-level" class="z-video-detail-tags-level-text"></a></span>
 							</div> 
+							<div>
+								in Playist
+								<a href="${pageContext.servletContext.contextPath}/playlist/${video.playlist.playlistId}"> 
+									${video.playlist.title}
+								</a>
+							</div>
 						</div>
 					</div>
 					<!-- //col-sm-7 -->
@@ -52,7 +58,7 @@
 									</a>
 								</div>
 								<div class="author-avatar-text">
-									<p class="author" style="font-size: 12px;">
+									<p class="z-tutor-name-text" style="font-size: 12px;">
 										<a href="${pageContext.servletContext.contextPath}/tutor/${video.tutor.tutorId}">${video.tutor.tutorName}</a>
 									</p>
 									<span id="creation-date" class="entry-date"><time></time></span>
@@ -172,7 +178,9 @@ var listVideoByPlaylist = function(videoIndex) {
 				html += '	<div class="latest-video z-recent-video-sub-leading-item media">\n';
 				html += '		<div class="latest-video-inner">\n';
 				html += '			<div class="media-left z-recent-video-sub-img">\n';
-				html += '				<img src="' + $z.formatter.url.getVideoMqImgUrlById(data[i].videoId) + '" class="z-recent-video-image-sub">\n';
+				html += '				<a href="' + $z.link.getPVideoDetail('${pageContext.servletContext.contextPath}', data[i].playlistId, data[i].videoId) + '">\n';
+				html += '					<img src="' + $z.formatter.url.getVideoMqImgUrlById(data[i].videoId) + '" class="z-recent-video-image-sub">\n';
+				html += '               </a>\n';
 				html += '			</div>\n';
 				html += '			<div class="video-post-info media-body">\n';
 				html += '				<h5 class="">\n';

@@ -46,7 +46,7 @@ public class PlaylistController {
 				.addAllObjects(ZaadWebSeoUtil.getCommonOgProperties())
 				.addObject("og_type", ZaadCommonConstants.ZAAD_WEB_OG_TYPE_WEB)
 				.addObject("og_img", ZaadCommonConstants.ZAAD_OG_DEFAULT_IMG)
-				.addObject("url", ZaadCommonConstants.ZAAD_SITE_URL + "/video/" + playlistId)
+				.addObject("url", ZaadCommonConstants.ZAAD_SITE_URL + "/playlist/" + playlistId)
 				.addObject("seo", generateHtmlSeo(playlist))
 		;
 	}

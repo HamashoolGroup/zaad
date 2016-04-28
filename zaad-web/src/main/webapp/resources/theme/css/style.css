@@ -701,16 +701,14 @@ body.offcanvas .body-innerwrapper{
 .close-offcanvas {
   position: absolute;
   top: 15px;
-  right: 15px;
+  right: 10px;
   z-index: 1;
-  border-radius: 100%;
   width: 30px;
   height: 30px;
   line-height: 30px;
   text-align: center;
   font-size: 16px;
   color: #fff;
-  background: rgba(0, 0, 0, 0.2);
 }
 .close-offcanvas:hover {
   background: rgba(0, 0, 0, 0.5);

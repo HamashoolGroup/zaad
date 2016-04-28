@@ -57,7 +57,9 @@
 							<div class="latest-video z-recent-video-sub-leading-item media">
 								<div class="latest-video-inner">
 									<div class="media-left z-recent-video-sub-img">
-										<img id="recent-video-sub-1-img" class="z-recent-video-image-sub">
+										<a id="recent-video-sub-1-img-anchor" href="single-article-video.html">
+											<img id="recent-video-sub-1-img" class="z-recent-video-image-sub">
+										</a>
 									</div>
 									<div class="video-post-info media-body">
 										<h5 class="">
@@ -84,7 +86,9 @@
 							<div class="latest-video z-recent-video-sub-leading-item media">
 								<div class="latest-video-inner">
 									<div class="media-left z-recent-video-sub-img">
-										<img id="recent-video-sub-2-img" class="z-recent-video-image-sub">
+										<a id="recent-video-sub-2-img-anchor" href="single-article-video.html">
+											<img id="recent-video-sub-2-img" class="z-recent-video-image-sub">
+										</a>
 									</div>
 									<div class="video-post-info media-body">
 										<h5 class="">
@@ -111,7 +115,9 @@
 							<div class="latest-video z-recent-video-sub-leading-item media">
 								<div class="latest-video-inner">
 									<div class="media-left z-recent-video-sub-img">
-										<img id="recent-video-sub-3-img" class="z-recent-video-image-sub">
+										<a id="recent-video-sub-3-img-anchor" href="single-article-video.html">
+											<img id="recent-video-sub-3-img" class="z-recent-video-image-sub">
+										</a>a
 									</div>
 									<div class="video-post-info media-body">
 										<h5 class="">
@@ -356,7 +362,7 @@
 				<!-- Recommend Playlist -->
 				<div class="single-article-category">
 					<div class="z-section-title">
-						<h3 class="pull-left">Playlist</h3>
+						<h3 class="pull-left">Hot Playlist</h3>
 					</div> <!-- //section-title -->
 
 					<div id="recommended-playlist-div">
@@ -541,6 +547,7 @@ var listMainRecentVideo = function(frstPageNo) {
 				$("#recent-video-sub-" + i + "-img").attr("src", $z.formatter.url.getVideoMqImgUrlById(data[i].videoId));				
 				$("#recent-video-sub-" + i + "-img").attr("alt", $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName));
 				$("#recent-video-sub-" + i + "-img").attr("title", $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName));
+				$("#recent-video-sub-" + i + "-img-anchor").attr('href', $z.link.getPVideoDetail('${pageContext.servletContext.contextPath}', data[i].playlistId, data[i].videoId));
 				$("#recent-video-sub-" + i + "-title").attr("title", $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName));
 				$("#recent-video-sub-" + i + "-title").attr('href', $z.link.getPVideoDetail('${pageContext.servletContext.contextPath}', data[i].playlistId, data[i].videoId));
 				$("#recent-video-sub-" + i + "-title").attr("alt", $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName));

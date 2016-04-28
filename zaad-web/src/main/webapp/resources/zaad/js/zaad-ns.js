@@ -15,3 +15,4 @@ $z.C.paging.playlist = 8;
 $z.C.paging.list = {};
 $z.C.paging.list.category = 12;
 $z.C.paging.list.search = 12;
+$z.C.paging.list.playlistVideo = 10;

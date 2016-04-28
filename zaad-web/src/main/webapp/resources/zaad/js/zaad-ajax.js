@@ -11,7 +11,6 @@ $z.ajax.listVideoCol4 = function(pageContext, restURL, page, size, divId, action
 		type : "GET",
 		url : targetUrl,
 		success : function(data) {
-			console.debug(data);
 			if ( data.length < size) {
 				$('#' + divId + '-more').hide();
 			}
@@ -97,14 +96,14 @@ $z.ajax.listPlaylistCol4 = function(pageContext, restURL, page, size, divId, act
 				html += '	<article>\n';
 				html += '		<div class="article-inner">\n';
 				html += '			<div class="img-wrapper">\n';
-				html += '				<a href="' + $z.link.getPVideoDetail(pageContext, data[i].videos[0].playlistId, data[i].videos[0].videoId) + '">\n';
+				html += '				<a href="' + $z.link.getPlaylistDetail(pageContext, data[i].playlistId) + '">\n';
 				html += '					<img class="img-100p" src="' + $z.formatter.url.getVideoMqImgUrlById(data[i].videos[0].videoId) + '" alt="' + $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName) + '" title="' + $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName) + '">\n';
 				html += '				</a>\n';
 				html += '			</div>\n';
 				html += '		</div>\n';
 				html += '		<div class="" style="margin-top: 5px; min-height: 26px;">\n';
 				html += '			<h5 class="">\n';
-				html += '				<a href="' + $z.link.getPVideoDetail(pageContext, data[i].videos[0].playlistId, data[i].videos[0].videoId) + '" alt="' + $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName) + '" title="' + $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName) + '">\n';
+				html += '				<a href="' + $z.link.getPlaylistDetail(pageContext, data[i].playlistId) + '" alt="' + $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName) + '" title="' + $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName) + '">\n';
 				html += '                   ' + $z.formatter.string.titleFriendly(data[i].title)
 				html += '               </a>\n';
 				html += '			</h5>\n';
