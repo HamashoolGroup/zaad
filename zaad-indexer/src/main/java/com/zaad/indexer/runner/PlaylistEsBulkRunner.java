@@ -6,6 +6,7 @@ import com.zaad.common.exception.ZaadDomainCreationException;
 import com.zaad.common.util.ZaadOutputDirectoryManager;
 import com.zaad.indexer.common.ZaadEsBulkRunner;
 import com.zaad.indexer.common.util.ZaadLanguageUtil;
+import com.zaad.indexer.sitemap.PlaylistSiteMapGenerator;
 import com.zaad.indexer.transport.ZaadEsClient;
 import com.zaad.indexer.transport.ZaadEsTransportClient;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +50,7 @@ public class PlaylistEsBulkRunner extends ZaadEsBulkRunner {
         init();
 
         ObjectMapper mapper = new ObjectMapper();
+        PlaylistSiteMapGenerator siteMapGenerator = new PlaylistSiteMapGenerator();
 
         List<String> tutorPlaylistIds = ZaadOutputDirectoryManager.getDataPlaylistIds();
         for (String tutorPlaylistId : tutorPlaylistIds) {
@@ -63,6 +65,7 @@ public class PlaylistEsBulkRunner extends ZaadEsBulkRunner {
 
                     // 벌크 프로세서에 추가
                     processor.add(builder.request());
+                    siteMapGenerator.appendUrl(playlist);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
