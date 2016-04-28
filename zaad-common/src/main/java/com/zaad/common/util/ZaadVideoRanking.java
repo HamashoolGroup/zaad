@@ -11,7 +11,7 @@ public class ZaadVideoRanking {
 		}
 		
 		double viewPoint = Math.log(viewCount + Math.E);
-		double playlistViewPoint = Math.log(playlistViewCount / viewCount + Math.E);
+		double playlistViewPoint = Math.log(playlistViewCount / (viewCount + 1) + Math.E);
 		
 		return playlistViewPoint * Math.log(likePoint / viewPoint + Math.E);
 	}
@@ -21,7 +21,7 @@ public class ZaadVideoRanking {
 		double viewPoint = Math.log(viewCount + Math.E);
 		double timePoint = ((new Date()).getTime() - creationDate.getTime()) / 1000 / 60 / 60 / 24 / 30 / 6.0;
 		double commentPoint = Math.log(commentCount + Math.E);
-		double playlistViewPoint = Math.log(playlistViewCount / viewCount + Math.E);
+		double playlistViewPoint = Math.log(playlistViewCount / (viewCount + 1) + Math.E);
 		
 		if ( timePoint < 1 ) {
 			timePoint = 1;
