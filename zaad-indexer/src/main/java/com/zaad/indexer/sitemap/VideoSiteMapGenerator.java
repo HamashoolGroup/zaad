@@ -49,7 +49,7 @@ public class VideoSiteMapGenerator {
             throw new NullPointerException("pw is null");
         }
         this.pw.println("<url>");
-        this.pw.println("    <loc>http://www.malsami.com/video/" + video.getVideoId() + "</loc>");
+        this.pw.println("    <loc>http://www.malsami.com/pvideo/" + video.getPlaylistId() + "/" + video.getVideoId() + "</loc>");
         this.pw.println("    <lastmod>" + LAST_MOD + "</lastmod>");
         this.pw.println("    <changefreq>weekly</changefreq>");
         this.pw.println("</url>");

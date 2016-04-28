@@ -1,5 +1,6 @@
 package com.zaad.indexer.sitemap;
 
+import com.zaad.common.domain.Playlist;
 import com.zaad.common.domain.Tutor;
 import com.zaad.common.util.ZaadProperties;
 import com.zaad.indexer.transport.ZaadEsTransportClientRunner;
@@ -10,8 +11,8 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TutorSiteMapGenerator {
-	private static final String SITEMAP_FILE_NAME = "sitemap_tutor.xml";
+public class PlaylistSiteMapGenerator {
+	private static final String SITEMAP_FILE_NAME = "sitemap_playlist.xml";
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	private static final Date date = new Date();
@@ -19,7 +20,7 @@ public class TutorSiteMapGenerator {
 	
 	private PrintWriter pw;
 
-	public TutorSiteMapGenerator() {
+	public PlaylistSiteMapGenerator() {
 		ZaadProperties.loadProperties(
 				ZaadEsTransportClientRunner.class.getClassLoader().getResourceAsStream(
 						"zaad.properties"));
@@ -35,9 +36,9 @@ public class TutorSiteMapGenerator {
 			e.printStackTrace();
 		}
 	}
-	public void appendUrl(Tutor tutor) {
+	public void appendUrl(Playlist playlist) {
 		this.pw.println("<url>");
-		this.pw.println("    <loc>http://www.malsami.com/tutor/" + tutor.getTutorId() + "</loc>");
+		this.pw.println("    <loc>http://www.malsami.com/playlist/" + playlist.getPlaylistId() + "</loc>");
 		this.pw.println("    <lastmod>" + LAST_MOD + "</lastmod>");
 		this.pw.println("    <changefreq>weekly</changefreq>");
 		this.pw.println("</url>");
