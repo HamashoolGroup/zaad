@@ -1,23 +1,56 @@
 package com.zaad.common.domain;
 
-import java.util.List;
-
 import com.zaad.common.ZaadCommonConstants;
 import com.zaad.common.ZaadDomain;
 import com.zaad.common.parser.VideoLineParser;
 import com.zaad.common.parser.ZaadLineParser;
 import com.zaad.common.util.ZaadCommonNamingManger;
 
+import java.util.List;
+
+/**
+ * @author socurites, lks21c
+ */
 public class Tutor extends ZaadDomain {
-	protected String tutorId;
-	protected String tutorName;
-	protected String profileImagePath;
-	protected String bannerImagePath;
-	protected int subscribeCount;
-	protected String adSite;
-	protected String adSiteTitle;
-	
-	protected String youtubeChannel;
+    /**
+     * 튜터 ID
+     */
+    protected String tutorId;
+
+    /**
+     * 튜터 이름
+     */
+    protected String tutorName;
+
+    /**
+     * 프로필 이미지 경로
+     */
+    protected String profileImagePath;
+
+    /**
+     * 배너 이미지 경로
+     */
+    protected String bannerImagePath;
+
+    /**
+     * 구독수
+     */
+    protected int subscribeCount;
+
+    /**
+     * 광고 사이트
+     */
+    protected String adSite;
+
+    /**
+     * 광고 사이트 이름
+     */
+    protected String adSiteTitle;
+
+    /**
+     * 유튜브 채널
+     */
+    protected String youtubeChannel;
 	
 	public Tutor() {
 		super();
@@ -25,7 +58,6 @@ public class Tutor extends ZaadDomain {
 	
 	public Tutor(List<String> lines) {
 		super(lines);
-		
 		int i = 0;
 		this.tutorName = lines.get(i++);
 		this.profileImagePath = lines.get(i++);

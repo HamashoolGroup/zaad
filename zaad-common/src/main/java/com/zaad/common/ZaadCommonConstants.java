@@ -3,6 +3,11 @@ package com.zaad.common;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * zaad 공통 상수
+ *
+ * @author socurites
+ */
 public class ZaadCommonConstants {
 	public static final String DELIMETER_SEMI_COLON = ";";
 	public static final String DELIMETER_SLASH = "/";
