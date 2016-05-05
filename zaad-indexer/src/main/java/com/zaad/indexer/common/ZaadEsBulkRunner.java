@@ -268,5 +268,4 @@ public abstract class ZaadEsBulkRunner {
     public void setNewIndexName(String newIndexName) {
         this.newIndexName = newIndexName;
     }
-
 }

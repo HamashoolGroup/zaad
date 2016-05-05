@@ -13,11 +13,9 @@ import java.util.Scanner;
  */
 public class ZaadEsSchemFileManager {
     private static Logger logger = LoggerFactory.getLogger(ZaadEsSchemFileManager.class);
-
     private static String SCHEMA_DIR = "schema";
     private static String SETTINGS_FILENAME = "settings.json";
     private static String MAPPING_FILENAME = "mappings.json";
-
 
     public static String getSettingsPath(String indexName, String typeName) {
         return SCHEMA_DIR + "/" + indexName + "/" + indexName + "_" + typeName + "_" + SETTINGS_FILENAME;
