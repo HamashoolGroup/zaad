@@ -7,6 +7,9 @@
 		<loc>http://www.malsami.com/sitemap_tutor.xml</loc>
 	</sitemap>
 	<sitemap>
+		<loc>http://www.malsami.com/sitemap_playlist.xml</loc>
+	</sitemap>
+	<sitemap>
 		<loc>http://www.malsami.com/sitemap_video.xml</loc>
 	</sitemap>
 </sitemapindex>

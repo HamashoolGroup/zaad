@@ -25,6 +25,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/tutor/detail.jsp" />
 	</definition>
 	
+	<definition name="zaad.playlist.detail" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/playlist/detail.jsp" />
+	</definition>
+	
 	<definition name="zaad.category.list" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/category/list.jsp" />
 	</definition>

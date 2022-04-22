@@ -4,8 +4,8 @@ import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
-import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
+import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termsQuery;
 
 import java.util.ArrayList;
@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import com.zaad.common.domain.Video;
 import com.zaad.common.util.ZaadKeywordMapper;
+import com.zaad.web.domain.TagCount;
 import com.zaad.web.mapper.VideoResultMapper;
 import com.zaad.web.search.TutorSearch;
 import com.zaad.web.search.VideoSearch;
@@ -293,7 +294,7 @@ public class VideoSearchImpl implements VideoSearch {
 		return list;
 	}
 	
-	public List<String> listRelatedTags(String tag, int size) {
+	public List<TagCount> listRelatedTags(String tag, int size) {
 		QueryBuilder mainQuery = boolQuery()
 				.should(termQuery("tags", tag))
 				.should(termQuery("levels", tag))
@@ -315,17 +316,19 @@ public class VideoSearchImpl implements VideoSearch {
         ;
 		
 		Terms terms = response.getAggregations().get("related");
-		List<String> relatedTags = new ArrayList<String>();
+		List<TagCount> relatedTags = new ArrayList<TagCount>();
+		TagCount tagCount = null;
 		for ( Bucket bucket : terms.getBuckets() ) {
 			if ( !tag.equals(bucket.getKey()) && size > relatedTags.size() ) {
-				relatedTags.add(bucket.getKeyAsString());
+				tagCount = new TagCount(bucket.getKeyAsString(), bucket.getDocCount());
+				relatedTags.add(tagCount);
 			}
 		}
 		
 		return relatedTags;
 	}
 	
-	public List<String> listRelatedTagsOfSearch(String text, int size) {
+	public List<TagCount> listRelatedTagsOfSearch(String text, int size) {
 		QueryBuilder mainQuery = boolQuery()
 				.should(matchQuery("title", text))
 		;
@@ -337,7 +340,7 @@ public class VideoSearchImpl implements VideoSearch {
 		
 		SearchResponse response = client.prepareSearch(INDEX_NAME)
 				.setTypes(TYPE_NAME)
-		        .setSearchType(SearchType.COUNT)
+		        .setSearchType(SearchType.QUERY_THEN_FETCH)
 		        .setQuery(mainQuery)
 		        .addAggregation(mainAggs)
 		        .execute()
@@ -345,10 +348,12 @@ public class VideoSearchImpl implements VideoSearch {
         ;
 		
 		Terms terms = response.getAggregations().get("related");
-		List<String> relatedTags = new ArrayList<String>();
+		List<TagCount> relatedTags = new ArrayList<TagCount>();
+		TagCount tagCount = null;
 		for ( Bucket bucket : terms.getBuckets() ) {
 			if ( !text.toLowerCase().equals(bucket.getKey()) && size > relatedTags.size() ) {
-				relatedTags.add(bucket.getKeyAsString());
+				tagCount = new TagCount(bucket.getKeyAsString(), bucket.getDocCount());
+				relatedTags.add(tagCount);
 			}
 		}
 		

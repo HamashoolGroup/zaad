@@ -1,16 +1,23 @@
 package com.zaad.common.domain;
 
+import com.zaad.common.ZaadDomain;
+import com.zaad.common.parser.VideoLineParser;
+import com.zaad.common.util.ZaadVideoRanking;
+import org.slf4j.LoggerFactory;
+
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
-import com.zaad.common.ZaadDomain;
-import com.zaad.common.parser.VideoLineParser;
-import com.zaad.common.util.ZaadVideoRanking;
-
+/**
+ * @author socurites, lks21c
+ */
 public class Video extends ZaadDomain {
+    /**
+     * 로거
+     */
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(Video.class);
+
 	protected String zaadId;
 	protected String videoId;
 	protected int index;
@@ -32,14 +39,14 @@ public class Video extends ZaadDomain {
 	
 	private long timestamp;
 	
-	protected int MAX_VIEW_COUNT = 100000000;
-	
 	public Video() {
 		super();
-	};
-	
-	public Video(Logger logger, List<String> lines, String tutorId, String playlistId, String videoId) {
-		super(lines);
+    }
+
+    ;
+
+    public Video(List<String> lines, String tutorId, String playlistId, String videoId) {
+        super(lines);
 		this.tutorId = tutorId;
 		this.playlistId = playlistId;
 		this.videoId = videoId;

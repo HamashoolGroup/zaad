@@ -1,19 +1,48 @@
 package com.zaad.common.domain;
 
+import com.zaad.common.ZaadDomain;
+import com.zaad.common.parser.VideoLineParser;
+import com.zaad.common.parser.ZaadLineParser;
+
 import java.util.List;
 
-import com.zaad.common.ZaadDomain;
-import com.zaad.common.parser.ZaadLineParser;
-import com.zaad.common.parser.VideoLineParser;
-
+/**
+ * @author socurites, lks21c
+ */
 public class Playlist extends ZaadDomain {
+	/**
+	 * 플레이리스트 ID
+	 */
 	protected String playlistId;
+
+	/**
+	 * 튜터 ID
+	 */
 	protected String tutorId;
+
+	/**
+	 * 제목
+	 */
 	protected String title;
+
+	/**
+	 * 상세설명
+	 */
 	protected String desc;
+
+	/**
+	 * 조회수
+	 */
 	protected int viewCount;
-	
+
+	/**
+	 * 튜터
+	 */
 	protected Tutor tutor;
+
+	/**
+	 * 영상
+	 */
 	protected List<Video> videos;
 	
 	public Playlist() {
@@ -22,7 +51,6 @@ public class Playlist extends ZaadDomain {
 	
 	public Playlist(List<String> lines) {
 		super(lines);
-		
 		int i = 0;
 		this.title = ZaadLineParser.getLineAsString(lines, i++);
 		this.desc = ZaadLineParser.getLineAsString(lines, i++);
@@ -31,7 +59,6 @@ public class Playlist extends ZaadDomain {
 	
 	public Playlist(String tutorId, String playlistId, List<String> lines) {
 		this(lines);
-		
 		this.playlistId = playlistId;
 		this.tutorId = tutorId;
 	}

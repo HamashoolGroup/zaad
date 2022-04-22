@@ -92,6 +92,39 @@
 							</div>
 						</div>
 					</div>
+					<div id="">
+						<div class="row">
+							<div class="col-sm-4 z-track-link">
+								<a href="${pageContext.servletContext.contextPath}/track/${track10}">
+									<img class="z-track-link-img"src="${pageContext.servletContext.contextPath}/resources/img/zaad/track/${track10}.jpg">
+								</a>
+							</div>
+							<div class="col-sm-4 z-track-link">
+									<a href="${pageContext.servletContext.contextPath}/track/${track11}">
+										<img class="z-track-link-img"src="${pageContext.servletContext.contextPath}/resources/img/zaad/track/${track11}.jpg">
+									</a>
+							</div>
+							<div class="col-sm-4 z-track-link">
+									<a href="${pageContext.servletContext.contextPath}/track/${track12}">
+										<img class="z-track-link-img"src="${pageContext.servletContext.contextPath}/resources/img/zaad/track/${track12}.jpg">
+									</a>
+							</div>
+						</div>
+					</div>
+					<div id="">
+						<div class="row">
+							<div class="col-sm-4 z-track-link">
+								<a href="${pageContext.servletContext.contextPath}/track/${track13}">
+									<img class="z-track-link-img"src="${pageContext.servletContext.contextPath}/resources/img/zaad/track/${track13}.jpg">
+								</a>
+							</div>
+							<div class="col-sm-4 z-track-link">
+									<a href="${pageContext.servletContext.contextPath}/track/${track14}">
+										<img class="z-track-link-img"src="${pageContext.servletContext.contextPath}/resources/img/zaad/track/${track14}.jpg">
+									</a>
+							</div>
+						</div>
+					</div>
 				</div>
 				<!-- //recommend packs -->
 			</div> <!-- //col-sm-9 -->	

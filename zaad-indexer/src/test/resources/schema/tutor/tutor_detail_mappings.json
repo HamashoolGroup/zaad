@@ -1,0 +1,19 @@
+{
+     "detail" : {
+         "_source" : {
+             "enabled" : "true"
+         },
+         "_all" : {
+             "enabled" : "false"
+         },
+         "properties" : {
+         	"tutorId"						: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
+			"tutorName"						: {"type" : "string", "store" : "yes", "index" : "analyzed", "analyzer": "zaad_standard_analyzer", "search_analyzer": "zaad_standard_analyzer"},
+			"profileImagePath"				: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
+			"bannerImagePath"				: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
+			"subscribeCount"				: {"type" : "integer", "store" : "yes", "index" : "not_analyzed"},
+			"adSite"						: {"type" : "string", "store" : "yes", "index" : "not_analyzed"},
+			"adSiteTitle"					: {"type" : "string", "store" : "yes", "index" : "not_analyzed"}
+         }
+     }
+ }

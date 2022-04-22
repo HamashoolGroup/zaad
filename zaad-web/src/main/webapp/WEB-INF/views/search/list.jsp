@@ -29,15 +29,11 @@
 					<div id="search-video-div">
 					</div>
 					
-					<div style="margin-bottom: 20px;">
-						Related Tags: 
-						<p id="related-tags" class="z-list-related-tags-text">
-						</p>
-					</div>
-					
-					<div clas="row">
+					<div class="row">
 						<div class="z-see-all">
-							<a id="search-video-div-more" href="#search-video-div-1">-- More --</a>
+							<a id="search-video-div-more" href="#search-video-div-1">
+								<input type="button" class="btn btn-default zaad-more" value="Load More">
+							</a>
 						</div>
 					</div>
 				</div>
@@ -46,6 +42,16 @@
 
 			<!--  col-sm-3 -->
 			<div class="col-sm-3">
+				<div class="row">
+					<div class="col-sm-12">
+						<h4>Related Tags</h4>
+						<ul id="related-tags" class="z-list-related-tags-text">
+							<li>#tag1(15)</li>
+							<li>#tag2(15)</li>
+							<li>#tag3(15)</li>
+						</ul>
+					</div>
+				</div>
 			</div> <!-- //col-sm-3 -->
 		</div> <!-- //row -->
 	</div> <!-- //container -->
@@ -84,7 +90,13 @@ var getData = function(type) {
 			type : "GET",
 			url : "${pageContext.servletContext.contextPath}" + "/tag/related?size=5&text=${text}",
 			success : function(data) {
-				$('#related-tags').html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", data));
+				var html = "";
+				for ( var i = 0; i < data.length; i++ ) {
+					html += "<li>" + $z.link.getTagCountAnchor("${pageContext.servletContext.contextPath}", data[i].text, data[i].count) + "</li>";
+				}
+				
+				
+				$('#related-tags').html(html);
 			},
 			dataType : "json"
 		});

@@ -16,6 +16,7 @@ import com.zaad.common.ZaadCommonConstants;
 import com.zaad.common.domain.Video;
 import com.zaad.common.util.ZaadKeywordMapper;
 import com.zaad.web.domain.HtmlSeo;
+import com.zaad.web.domain.TagCount;
 import com.zaad.web.search.VideoSearch;
 import com.zaad.web.util.ZaadWebSeoUtil;
 
@@ -40,9 +41,7 @@ public class TagController {
 	}
 	
 	@RequestMapping(value="/{tag}/list", produces = "application/json; charset=utf8")
-	public String list(@PathVariable("tag") String tag, @RequestParam(value="page", required=false, defaultValue="1") int page, @RequestParam(value="size", required=false, defaultValue="4") int size) throws JsonProcessingException {
-		String sortType = "A";
-		
+	public String list(@PathVariable("tag") String tag, @RequestParam(value="page", required=false, defaultValue="1") int page, @RequestParam(value="size", required=false, defaultValue="4") int size, @RequestParam(value="sortType", required=false, defaultValue="R") String sortType) throws JsonProcessingException {
 		List<String> tags = new ArrayList<String>();
 		tags.add(tag);
 		List<Video> videos = videoSearch.searchVideoByTags("userId", tags, page, size, sortType);
@@ -64,7 +63,7 @@ public class TagController {
 	
 	@RequestMapping(value="/related/{tag}", produces = "application/json; charset=utf8")
 	public String listRelatedTags(@PathVariable("tag") String tag, @RequestParam(value="size", required=false, defaultValue="5") int size) throws JsonProcessingException {
-		List<String> relatedTags = videoSearch.listRelatedTags(tag, size);
+		List<TagCount> relatedTags = videoSearch.listRelatedTags(tag, size);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(relatedTags);
@@ -72,7 +71,7 @@ public class TagController {
 	
 	@RequestMapping(value="/related", produces = "application/json; charset=utf8")
 	public String listRelatedTagsOfSearch(@RequestParam("text") String text, @RequestParam(value="size", required=false, defaultValue="5") int size) throws JsonProcessingException {
-		List<String> relatedTags = videoSearch.listRelatedTagsOfSearch(text, size);
+		List<TagCount> relatedTags = videoSearch.listRelatedTagsOfSearch(text, size);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(relatedTags);

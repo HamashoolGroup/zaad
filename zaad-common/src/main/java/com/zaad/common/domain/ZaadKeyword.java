@@ -1,82 +1,99 @@
 package com.zaad.common.domain;
 
-import java.util.List;
-
 import com.zaad.common.ZaadMetaDomain;
 
+import java.util.List;
+
+/**
+ * zaad 키워드
+ *
+ * @author socurites, lks21c
+ */
 public class ZaadKeyword extends ZaadMetaDomain {
-	protected String name;
-	
-	protected String tag;
-	
-	protected String title;
-	
-	protected List<String> relatedTerm;
-	
-	public ZaadKeyword(String name, String tag, String title, List<String> relatedTerm) {
-		this.name = name;
-		this.tag = tag;
-		this.title = title;
-		this.relatedTerm = relatedTerm;
-	}
-	
-	/**
-	 * @return the tag
-	 */
-	public String getTag() {
-		return tag;
-	}
+    /**
+     * 이름
+     */
+    protected String name;
 
-	/**
-	 * @param tag the tag to set
-	 */
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
+    /**
+     * 태그
+     */
+    protected String tag;
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * 제목
+     */
+    protected String title;
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * 관련용어
+     */
+    protected List<String> relatedTerm;
 
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
+    public ZaadKeyword(String name, String tag, String title, List<String> relatedTerm) {
+        this.name = name;
+        this.tag = tag;
+        this.title = title;
+        this.relatedTerm = relatedTerm;
+    }
 
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    /**
+     * @return the tag
+     */
+    public String getTag() {
+        return tag;
+    }
 
-	/**
-	 * @return the relatedTerm
-	 */
-	public List<String> getRelatedTerm() {
-		return relatedTerm;
-	}
+    /**
+     * @param tag the tag to set
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
-	/**
-	 * @param relatedTerm the relatedTerm to set
-	 */
-	public void setRelatedTerm(List<String> relatedTerm) {
-		this.relatedTerm = relatedTerm;
-	}
-	
-	public void addTerm(String term) {
-		this.relatedTerm.add(term);
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * @return the relatedTerm
+     */
+    public List<String> getRelatedTerm() {
+        return relatedTerm;
+    }
+
+    /**
+     * @param relatedTerm the relatedTerm to set
+     */
+    public void setRelatedTerm(List<String> relatedTerm) {
+        this.relatedTerm = relatedTerm;
+    }
+
+    public void addTerm(String term) {
+        this.relatedTerm.add(term);
+    }
 }

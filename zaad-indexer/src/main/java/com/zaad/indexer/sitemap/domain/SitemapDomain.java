@@ -1,5 +1,8 @@
 package com.zaad.indexer.sitemap.domain;
 
+/**
+ * @author socurites
+ */
 public class SitemapDomain {
 	protected String loc;
 	protected String changefreq = "weekly";

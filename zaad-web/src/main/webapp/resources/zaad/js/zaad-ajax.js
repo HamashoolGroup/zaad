@@ -6,7 +6,7 @@ $z.ajax.listVideoCol4 = function(pageContext, restURL, page, size, divId, action
 	if ( queryText ) {
 		targetUrl = targetUrl + "&text=" + encodeURIComponent(queryText);
 	}
-		
+	
 	$.ajax({
 		type : "GET",
 		url : targetUrl,
@@ -42,22 +42,16 @@ $z.ajax.listVideoCol4 = function(pageContext, restURL, page, size, divId, action
 				html += '			<p class="text-right z-tutor-name-text">\n';
 				html += '				' + $z.link.getTutorDetailAnchor(pageContext, data[i].tutor.tutorId, $z.formatter.string.tutorNameFriendly(data[i].tutor.tutorName));
 				html += '			</p>\n';
- 				if ( sortType == "R" ) {
 				html += '			<p class="text-right z-video-stats-text">\n';
-				html += '				' + $z.formatter.number.doubleFriendly(data[i].recommendarity) + " gram / " + $z.formatter.date.friendly(data[i].creationDate) + '</p>\n';
+				html += '				' + $z.formatter.date.friendly(data[i].creationDate) + '</p>\n';
 				html += '			</p>\n';
-				} else if ( sortType == "P" ) {
-				html += '			<p class="text-right z-video-stats-text">\n';
-				html += '				' + $z.formatter.number.doubleFriendly(data[i].popularity) + " gram / " + $z.formatter.date.friendly(data[i].creationDate) + '</p>\n';
-				html += '			</p>\n';
-				}
 				html += '			<p class="text-right z-video-tags-text">\n';
 				html += '				' + $z.link.getTagsAnchor(pageContext, data[i].tags) + '</p>\n';
 				html += '			</p>\n';
 				html += '			<p class="text-right z-video-tags-level-text">\n';
 				html += '				' + $z.link.getTagsAnchor(pageContext, data[i].levels) + '</p>\n';
 				html += '			</p>\n';
-				
+				html += $z.util.generateStarRating($z.util.normalizeRecommendarity(data[i].recommendarity))
 				html += '		</div>\n';
 				html += '	</article>\n';
 				html += '</div>\n';
@@ -102,14 +96,14 @@ $z.ajax.listPlaylistCol4 = function(pageContext, restURL, page, size, divId, act
 				html += '	<article>\n';
 				html += '		<div class="article-inner">\n';
 				html += '			<div class="img-wrapper">\n';
-				html += '				<a href="' + $z.link.getPVideoDetail(pageContext, data[i].videos[0].playlistId, data[i].videos[0].videoId) + '">\n';
+				html += '				<a href="' + $z.link.getPlaylistDetail(pageContext, data[i].playlistId) + '">\n';
 				html += '					<img class="img-100p" src="' + $z.formatter.url.getVideoMqImgUrlById(data[i].videos[0].videoId) + '" alt="' + $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName) + '" title="' + $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName) + '">\n';
 				html += '				</a>\n';
 				html += '			</div>\n';
 				html += '		</div>\n';
 				html += '		<div class="" style="margin-top: 5px; min-height: 26px;">\n';
 				html += '			<h5 class="">\n';
-				html += '				<a href="' + $z.link.getPVideoDetail(pageContext, data[i].videos[0].playlistId, data[i].videos[0].videoId) + '" alt="' + $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName) + '" title="' + $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName) + '">\n';
+				html += '				<a href="' + $z.link.getPlaylistDetail(pageContext, data[i].playlistId) + '" alt="' + $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName) + '" title="' + $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName) + '">\n';
 				html += '                   ' + $z.formatter.string.titleFriendly(data[i].title)
 				html += '               </a>\n';
 				html += '			</h5>\n';

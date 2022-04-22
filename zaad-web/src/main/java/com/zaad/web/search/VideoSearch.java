@@ -3,6 +3,7 @@ package com.zaad.web.search;
 import java.util.List;
 
 import com.zaad.common.domain.Video;
+import com.zaad.web.domain.TagCount;
 
 public interface VideoSearch {
 	List<Video> listRecentVideo(String userId, int page, int size);
@@ -23,8 +24,8 @@ public interface VideoSearch {
 	
 	List<Video> searchVideoByTags(String userId, List<String> tags, int page, int size, String sortType);
 	
-	List<String> listRelatedTags(String tag, int size);
+	List<TagCount> listRelatedTags(String tag, int size);
 	
-	List<String> listRelatedTagsOfSearch(String text, int size);
+	List<TagCount> listRelatedTagsOfSearch(String text, int size);
 	
 }

@@ -3,15 +3,41 @@ package com.zaad.common.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author socurites, lks21c
+ */
 public class ZaadTokenBox {
-	private Set<String> categories;
-	private Set<String> sections;
-	private Set<String> tests;
-	private Set<String> tags;
-	private Set<String> continentals;
-	private Set<String> levels;
-	
-	public ZaadTokenBox() {
+    /**
+     * 카테고리
+     */
+    private Set<String> categories;
+
+    /**
+     * 섹션
+     */
+    private Set<String> sections;
+
+    /**
+     * 테스트
+     */
+    private Set<String> tests;
+
+    /**
+     * 태그
+     */
+    private Set<String> tags;
+
+    /**
+     * 대륙
+     */
+    private Set<String> continentals;
+
+    /**
+     * 레벨
+     */
+    private Set<String> levels;
+
+    public ZaadTokenBox() {
 		this.categories = new HashSet<String>();
 		this.sections = new HashSet<String>();
 		this.tests = new HashSet<String>();

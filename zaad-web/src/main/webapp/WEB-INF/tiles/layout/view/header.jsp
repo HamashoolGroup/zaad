@@ -185,8 +185,8 @@
 				<a href="${pageContext.servletContext.contextPath}/">Home</a>
 			</li>
 			<li>
-				<a href="#">Topic</a>
-				<span role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-01" aria-expanded="false" aria-controls="collapse-menu-01"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
+				<a href="javascript:$('#xs-menu-topic').click();">Topic</a>
+				<span id="xs-menu-topic" role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-01" aria-expanded="false" aria-controls="collapse-menu-01"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
 				<ul class="collapse" id="collapse-menu-01" aria-expanded="false">
 					<li><a href="${pageContext.servletContext.contextPath}/category/everyday">Everyday</a></li>
 					<li><a href="${pageContext.servletContext.contextPath}/category/tip">Culture & Tips</a></li>
@@ -201,8 +201,8 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#">Section</a>
-				<span role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-02" aria-expanded="false" aria-controls="collapse-menu-02"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
+				<a href="javascript:$('#xs-menu-section').click();">Section</a>
+				<span id="xs-menu-section" role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-02" aria-expanded="false" aria-controls="collapse-menu-02"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
 				<ul class="collapse" id="collapse-menu-02" aria-expanded="false">
 					<li><a href="${pageContext.servletContext.contextPath}/category/speaking">Speaking</a></li>
 					<li><a href="${pageContext.servletContext.contextPath}/category/listening">Listening</a></li>
@@ -214,8 +214,8 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#">Test</a>
-				<span role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-03" aria-expanded="false" aria-controls="collapse-menu-03"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
+				<a href="javascript:$('#xs-menu-test').click();">Test</a>
+				<span id="xs-menu-test" role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-03" aria-expanded="false" aria-controls="collapse-menu-03"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
 				<ul class="collapse" id="collapse-menu-03" aria-expanded="false">
 					<li><a href="${pageContext.servletContext.contextPath}/category/ielts">IELTS</a></li>
 					<li><a href="${pageContext.servletContext.contextPath}/category/toeic">TOEIC</a></li>
@@ -223,8 +223,8 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#">Level</a>
-				<span role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-04" aria-expanded="false" aria-controls="collapse-menu-04"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
+				<a href="javascript:$('#xs-menu-level').click();">Level</a>
+				<span id="xs-menu-level" role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-04" aria-expanded="false" aria-controls="collapse-menu-04"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
 				<ul class="collapse" id="collapse-menu-04" aria-expanded="false">
 					<li><a href="${pageContext.servletContext.contextPath}/category/beginner">For Beginner</a></li>
 					<li><a href="${pageContext.servletContext.contextPath}/category/intermediate">For Intermediate</a></li>
@@ -232,8 +232,8 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#">Accent</a>
-				<span role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-05" aria-expanded="false" aria-controls="collapse-menu-05"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
+				<a href="javascript:$('#xs-menu-accent').click();">Accent</a>
+				<span id="xs-menu-accent" role="button" class="offcanvas-menu-toggler collapsed" data-toggle="collapse" data-target="#collapse-menu-05" aria-expanded="false" aria-controls="collapse-menu-05"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></span>
 				<ul class="collapse" id="collapse-menu-05" aria-expanded="false">
 					<li><a href="${pageContext.servletContext.contextPath}/category/american">American</a></li>
 					<li><a href="${pageContext.servletContext.contextPath}/category/canada">Canadian</a></li>

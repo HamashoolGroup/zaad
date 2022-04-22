@@ -18,7 +18,7 @@
 
 					<div class="row">
 						<!-- leading-item -->
-						<div class="col-sm-7">
+						<div class="col-sm-7" style="margin-bottom: 20px;">
 							<div class="z-video-large">
 								<iframe id="recent-video-large-iframe" src="" frameborder="0" allowfullscreen></iframe>
 							</div>
@@ -34,7 +34,7 @@
 									tutor name
 								</p>
 								<p id="recent-video-large-stat" class="z-video-stats-text">
-									9.5 avg / 6 months ago
+									6 months ago
 								</p>
 								<p id="recent-video-large-tags" class="z-video-tags-text">
 									#funny,#iets,#writing
@@ -42,6 +42,14 @@
 								<p id="recent-video-large-tags-level" class="z-video-tags-level-text">
 									#advanced
 								</p>
+								<div id="recent-video-large-rating" class="zaad-star-rating pull-right ">
+									<span class="fa fa-star-o" data-rating="1"></span>
+									<span class="fa fa-star-o" data-rating="2"></span>
+									<span class="fa fa-star-o" data-rating="3"></span>
+									<span class="fa fa-star-o" data-rating="4"></span>
+									<span class="fa fa-star-o" data-rating="5"></span>
+									<input type="hidden" name="whatever" class="rating-value" value="3">
+								</div> 
 							</div>
 						</div> <!-- //leading-item -->
 
@@ -49,16 +57,26 @@
 							<div class="latest-video z-recent-video-sub-leading-item media">
 								<div class="latest-video-inner">
 									<div class="media-left z-recent-video-sub-img">
-										<img id="recent-video-sub-1-img" class="z-recent-video-image-sub">
+										<a id="recent-video-sub-1-img-anchor" href="single-article-video.html">
+											<img id="recent-video-sub-1-img" class="z-recent-video-image-sub">
+										</a>
 									</div>
 									<div class="video-post-info media-body">
 										<h5 class="">
 											<a id="recent-video-sub-1-title" href="single-article-video.html">Proin suscipit luctus orci placerat</a>
 										</h5>
 										<p id="recent-video-sub-1-tutor-name" class="text-right z-tutor-name-text">user-a</p>
-										<p id="recent-video-sub-1-stat" class="text-right z-video-stats-text">234 views / 5 days ago</p>
+										<p id="recent-video-sub-1-stat" class="text-right z-video-stats-text">5 days ago</p>
 										<p id="recent-video-sub-1-tags" class="text-right z-video-tags-text">#tag1,#tag2</p>
 										<p id="recent-video-sub-1-tags-level" class="text-right z-video-tags-level-text">#level1</p>
+										<div id="recent-video-sub-1-rating" class="zaad-star-rating pull-right ">
+											<span class="fa fa-star-o" data-rating="1"></span>
+											<span class="fa fa-star-o" data-rating="2"></span>
+											<span class="fa fa-star-o" data-rating="3"></span>
+											<span class="fa fa-star-o" data-rating="4"></span>
+											<span class="fa fa-star-o" data-rating="5"></span>
+											<input type="hidden" name="whatever" class="rating-value" value="3">
+										</div> 
 									</div>
 								</div>
 							</div>  
@@ -68,16 +86,26 @@
 							<div class="latest-video z-recent-video-sub-leading-item media">
 								<div class="latest-video-inner">
 									<div class="media-left z-recent-video-sub-img">
-										<img id="recent-video-sub-2-img" class="z-recent-video-image-sub">
+										<a id="recent-video-sub-2-img-anchor" href="single-article-video.html">
+											<img id="recent-video-sub-2-img" class="z-recent-video-image-sub">
+										</a>
 									</div>
 									<div class="video-post-info media-body">
 										<h5 class="">
 											<a id="recent-video-sub-2-title" href="single-article-video.html">Proin suscipit luctus orci placerat</a>
 										</h5>
 										<p id="recent-video-sub-2-tutor-name" class="text-right z-tutor-name-text">user-a</p>
-										<p id="recent-video-sub-2-stat" class="text-right z-video-stats-text">234 views / 5 days ago</p>
+										<p id="recent-video-sub-2-stat" class="text-right z-video-stats-text">5 days ago</p>
 										<p id="recent-video-sub-2-tags" class="text-right z-video-tags-text">#tag1,#tag2</p>
 										<p id="recent-video-sub-2-tags-level" class="text-right z-video-tags-level-text">#level1</p>
+										<div id="recent-video-sub-2-rating" class="zaad-star-rating pull-right ">
+											<span class="fa fa-star-o" data-rating="1"></span>
+											<span class="fa fa-star-o" data-rating="2"></span>
+											<span class="fa fa-star-o" data-rating="3"></span>
+											<span class="fa fa-star-o" data-rating="4"></span>
+											<span class="fa fa-star-o" data-rating="5"></span>
+											<input type="hidden" name="whatever" class="rating-value" value="3">
+										</div> 
 									</div>
 								</div>
 							</div>  
@@ -87,16 +115,26 @@
 							<div class="latest-video z-recent-video-sub-leading-item media">
 								<div class="latest-video-inner">
 									<div class="media-left z-recent-video-sub-img">
-										<img id="recent-video-sub-3-img" class="z-recent-video-image-sub">
+										<a id="recent-video-sub-3-img-anchor" href="single-article-video.html">
+											<img id="recent-video-sub-3-img" class="z-recent-video-image-sub">
+										</a>a
 									</div>
 									<div class="video-post-info media-body">
 										<h5 class="">
 											<a id="recent-video-sub-3-title" href="single-article-video.html">Proin suscipit luctus orci placerat</a>
 										</h5>
 										<p id="recent-video-sub-3-tutor-name" class="text-right z-tutor-name-text">user-a</p>
-										<p id="recent-video-sub-3-stat" class="text-right z-video-stats-text">234 views / 5 days ago</p>
+										<p id="recent-video-sub-3-stat" class="text-right z-video-stats-text">5 days ago</p>
 										<p id="recent-video-sub-3-tags" class="text-right z-video-tags-text">#tag1,#tag2</p>
 										<p id="recent-video-sub-3-tags-level" class="text-right z-video-tags-level-text">#level1</p>
+										<div id="recent-video-sub-3-rating" class="zaad-star-rating pull-right ">
+											<span class="fa fa-star-o" data-rating="1"></span>
+											<span class="fa fa-star-o" data-rating="2"></span>
+											<span class="fa fa-star-o" data-rating="3"></span>
+											<span class="fa fa-star-o" data-rating="4"></span>
+											<span class="fa fa-star-o" data-rating="5"></span>
+											<input type="hidden" name="whatever" class="rating-value" value="3">
+										</div> 
 									</div>
 								</div>
 							</div>  
@@ -121,7 +159,9 @@
 					
 					<div class="row">
 						<div class="z-see-all">
-							<a id="recent-video-div-more" href="#recent-video-div-1">-- More --</a>
+							<a id="recent-video-div-more" href="#recent-video-div-1">
+								<input type="button" class="btn btn-default zaad-more" value="Load More">
+							</a>
 						</div>
 					</div>
 				</div> <!-- //Recent Videos -->
@@ -131,7 +171,9 @@
 					<div class="z-section-title">
 						<h3 class="pull-left">Recommend Tracks</h3>
 						<div class="pull-right see-all">
-							<a href="${pageContext.servletContext.contextPath}/track/index" title="English track for you recommended by malsaMi">-- See all --</a>
+							<a href="${pageContext.servletContext.contextPath}/track/index" title="English track for you recommended by malsaMi">
+								More Tracks <i class="fa fa-caret-right"></i>
+							</a>
 						</div>
 					</div>
 					
@@ -290,7 +332,9 @@
 					
 					<div clas="row">
 						<div class="z-see-all">
-							<a id="recommended-video-div-more" href="#recommended-video-div-1">-- More --</a>
+							<a id="recommended-video-div-more" href="#recommended-video-div-1">
+								<input type="button" class="btn btn-default zaad-more" value="Load More">
+							</a>
 						</div>
 					</div>
 				</div>
@@ -307,7 +351,9 @@
 					
 					<div clas="row">
 						<div class="z-see-all">
-							<a id="popular-video-div-more" href="#popular-video-div-1">-- More --</a>
+							<a id="popular-video-div-more" href="#popular-video-div-1">
+								<input type="button" class="btn btn-default zaad-more" value="Load More">
+							</a>
 						</div>
 					</div>
 				</div>
@@ -316,7 +362,7 @@
 				<!-- Recommend Playlist -->
 				<div class="single-article-category">
 					<div class="z-section-title">
-						<h3 class="pull-left">Playlist</h3>
+						<h3 class="pull-left">Hot Playlist</h3>
 					</div> <!-- //section-title -->
 
 					<div id="recommended-playlist-div">
@@ -435,17 +481,18 @@ $(document).ready(function() {
 				html += '<div class="row" style="margin-bottom: 5px;">\n';
 				html += '	<div class="col-xs-4" style="margin-right: -15px;">\n';
 				html += '		<a href="' + $z.link.getTutorDetail("${pageContext.servletContext.contextPath}", data[i].tutorId) + '">\n';
-				html += '		    <img style="width: 100%;" src="' + data[i].profileImagePath + '">\n';
+				html += '		    <img class="img img-circle" style="width: 100%;" src="' + data[i].profileImagePath + '">\n';
 				html += '		</a>\n';
 				html += '	</div>\n';
 				html += '	<div class="col-xs-8">\n';
 				//html += '		<a href="' + $z.link.getTutorDetail("${pageContext.servletContext.contextPath}", data[i].tutorId) + '">\n';
 				//html += '			<p class="z-tutor-name-text">' + data[i].tutorName + '</p>\n';
 				//html += '		</a>\n';
-				html += '		<span class="z-video-tags-text"></span>\n';
-				html += '		<a href="' + $z.link.getTutorDetail("${pageContext.servletContext.contextPath}", data[i].tutorId) + '" class="z-tutor-name-text">\n';
-				html += '			' + data[i].tutorName + '\n';
-				html += '		</a>\n';
+				html += '       <p style="padding-top: 15px;">\n';
+				html += '			<a href="' + $z.link.getTutorDetail("${pageContext.servletContext.contextPath}", data[i].tutorId) + '" class="z-tutor-name-text">\n';
+				html += '				' + data[i].tutorName + '\n';
+				html += '			</a>\n';
+				html += '       <\p>\n';
 				html += '	</div>\n';
 				html += '</div>\n';
 			}
@@ -454,6 +501,8 @@ $(document).ready(function() {
 		},
 		dataType : "json"
 	});
+	
+	
 });
 </script>
 
@@ -487,22 +536,29 @@ var listMainRecentVideo = function(frstPageNo) {
 			$("#recent-video-large-title").attr('href', $z.link.getPVideoDetail('${pageContext.servletContext.contextPath}', data[0].playlistId, data[0].videoId));
 			$("#recent-video-large-title").text(data[0].title);
 			$("#recent-video-large-tutor-name").html($z.link.getTutorDetailAnchor("${pageContext.servletContext.contextPath}", data[0].tutor.tutorId, data[0].tutor.tutorName));
-			$("#recent-video-large-stat").text($z.formatter.number.doubleFriendly(data[0].recommendarity) + " gram / " + $z.formatter.date.friendly(data[0].creationDate));
+			$("#recent-video-large-stat").text($z.formatter.date.friendly(data[0].creationDate));
 			$("#recent-video-large-tags").html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", data[0].tags));
 			$("#recent-video-large-tags-level").html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", data[0].levels));
 			
+			$("#recent-video-large-rating input.rating-value").val($z.util.normalizeRecommendarity(data[0].recommendarity));
+			$z.util.setStarRating($("#recent-video-large-rating.zaad-star-rating .fa"));
+
 			for ( var i = 1; i < 4; i++ ) {
 				$("#recent-video-sub-" + i + "-img").attr("src", $z.formatter.url.getVideoMqImgUrlById(data[i].videoId));				
 				$("#recent-video-sub-" + i + "-img").attr("alt", $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName));
 				$("#recent-video-sub-" + i + "-img").attr("title", $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName));
+				$("#recent-video-sub-" + i + "-img-anchor").attr('href', $z.link.getPVideoDetail('${pageContext.servletContext.contextPath}', data[i].playlistId, data[i].videoId));
 				$("#recent-video-sub-" + i + "-title").attr("title", $z.seo.img.videoTitle(data[i].title, data[i].tutor.tutorName));
 				$("#recent-video-sub-" + i + "-title").attr('href', $z.link.getPVideoDetail('${pageContext.servletContext.contextPath}', data[i].playlistId, data[i].videoId));
 				$("#recent-video-sub-" + i + "-title").attr("alt", $z.seo.img.videoAlt(data[i].title, data[i].tutor.tutorName));
 				$("#recent-video-sub-" + i + "-title").text(data[i].title);
 				$("#recent-video-sub-" + i + "-tutor-name").html($z.link.getTutorDetailAnchor("${pageContext.servletContext.contextPath}", data[i].tutor.tutorId, data[i].tutor.tutorName));
-				$("#recent-video-sub-" + i + "-stat").text($z.formatter.number.doubleFriendly(data[i].recommendarity) + " gram / " + $z.formatter.date.friendly(data[i].creationDate));
+				$("#recent-video-sub-" + i + "-stat").text($z.formatter.date.friendly(data[i].creationDate));
 				$("#recent-video-sub-" + i + "-tags").html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", data[i].tags));
 				$("#recent-video-sub-" + i + "-tags-level").html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", data[i].levels));
+				
+				$("#recent-video-sub-" + i + "-rating input.rating-value").val($z.util.normalizeRecommendarity(data[i].recommendarity));
+				$z.util.setStarRating($("#recent-video-sub-" + i + "-rating.zaad-star-rating .fa"));
 			}
 			
 			$('#recent-video-div-more').data('page', frstPageNo + 1);

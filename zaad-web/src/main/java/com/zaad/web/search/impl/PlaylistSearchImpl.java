@@ -32,7 +32,7 @@ public class PlaylistSearchImpl implements PlaylistSearch {
 	public static final String INDEX_NAME = "playlist_p";
 	public static final String TYPE_NAME = "detail";
 	
-	private static final int MAX_AGG_SIZE = 30;
+	private static final int MAX_AGG_SIZE = 100;
 	
 	@Resource
 	private TransportClient client;
@@ -70,11 +70,17 @@ public class PlaylistSearchImpl implements PlaylistSearch {
 		
 		Terms terms = response.getAggregations().get("playlist");
 		Playlist playlist = null;
+		int skipSize = (page-1) * size;
+		int skipIndex = 0;
 		for ( Bucket bucket : terms.getBuckets() ) {
+			skipIndex++;
+			if ( skipIndex < skipSize ) {
+				continue;
+			}
 			playlist = this.getOneById(bucket.getKeyAsString());
 			
 			if ( playlist != null ) {
-				playlist.setVideos(videoSearch.listVideoByPlaylistId(playlist.getPlaylistId(), 1, VideoSearchImpl.MAX_VIDEO_COUNT));
+				playlist.setVideos(videoSearch.listVideoByPlaylistId(playlist.getPlaylistId(), 0, VideoSearchImpl.MAX_VIDEO_COUNT));
 				if ( playlist.getVideos() != null && !playlist.getVideos().isEmpty() ) {
 					list.add(playlist);
 					
@@ -117,7 +123,13 @@ public class PlaylistSearchImpl implements PlaylistSearch {
 		
 		Terms terms = response.getAggregations().get("playlist");
 		Playlist playlist = null;
+		int skipSize = (page-1) * size;
+		int skipIndex = 0;
 		for ( Bucket bucket : terms.getBuckets() ) {
+			skipIndex++;
+			if ( skipIndex < skipSize ) {
+				continue;
+			}
 			playlist = this.getOneById(bucket.getKeyAsString());
 			
 			if ( playlist != null ) {

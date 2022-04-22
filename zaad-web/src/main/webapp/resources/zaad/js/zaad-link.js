@@ -16,6 +16,10 @@ $z.link.getPVideoDetail = function(context, playlistId, videoId) {
 	return context + "/" + "pvideo" + "/" + playlistId + "/" + videoId;
 };
 
+$z.link.getPlaylistDetail = function(context, playlistId) {
+	return context + "/" + "playlist" + "/" + playlistId;
+};
+
 $z.link.getTagsAnchor = function(context, tags, maxTagCnt) {
 	if ( tags== null || tags.length < 1 ) {
 		return "";
@@ -36,3 +40,7 @@ $z.link.getTagsAnchor = function(context, tags, maxTagCnt) {
 	
 	return tagsText;
 };
+
+$z.link.getTagCountAnchor = function(context, tag, count) {
+	return "#" + "<a href='" + context + "/tag/" + tag + "'>" + tag + "</a>" + " (" + count + ")";
+}

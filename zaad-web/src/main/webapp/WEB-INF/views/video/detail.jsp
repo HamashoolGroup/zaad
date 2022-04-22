@@ -15,6 +15,28 @@
 						<div class="z-video-large">
 							<iframe id="main-video-iframe" src="" frameborder="0" allowfullscreen></iframe>
 						</div>
+						<div style="margin: 10px 0 10px 0;">
+							<div id="recent-video-large-rating" class="zaad-star-rating">
+								<span class="fa fa-star-o" data-rating="1"></span>
+								<span class="fa fa-star-o" data-rating="2"></span>
+								<span class="fa fa-star-o" data-rating="3"></span>
+								<span class="fa fa-star-o" data-rating="4"></span>
+								<span class="fa fa-star-o" data-rating="5"></span>
+								<input type="hidden" name="whatever" class="rating-value" value="3">
+							</div>
+							<div class="z-video-tags-div">
+								<span id="tags" class="z-video-detail-tags-text"></a></span>
+							</div>
+							<div>
+								<span id="tags-level" class="z-video-detail-tags-level-text"></a></span>
+							</div> 
+							<div>
+								in Playist
+								<a href="${pageContext.servletContext.contextPath}/playlist/${video.playlist.playlistId}"> 
+									${video.playlist.title}
+								</a>
+							</div>
+						</div>
 					</div>
 					<!-- //col-sm-7 -->
 					<!-- col-sm-5 -->
@@ -28,21 +50,15 @@
 				
 				<div class="row">
 					<div class="col-sm-12">
-						<div class="z-video-tags-div">
-							<span id="tags" class="z-video-detail-tags-text"></a></span>
-						</div>
-						<div>
-							<span id="tags-level" class="z-video-detail-tags-level-text"></a></span>
-						</div>
-						<div class="entry-blog-meta" style="max-width: 640px;">
-							<div class="entry-blog-meta-list">
+						<div class="z-video-tutor">
+							<div class="">
 								<div class="author-avatar">
 									<a href="${pageContext.servletContext.contextPath}/tutor/${video.tutor.tutorId}">
 										<img src="${video.tutor.profileImagePath}" alt="${video.tutor.tutorName}" title="${video.tutor.tutorName}">
 									</a>
 								</div>
 								<div class="author-avatar-text">
-									<p class="author" style="font-size: 12px;">
+									<p class="z-tutor-name-text" style="font-size: 12px;">
 										<a href="${pageContext.servletContext.contextPath}/tutor/${video.tutor.tutorId}">${video.tutor.tutorName}</a>
 									</p>
 									<span id="creation-date" class="entry-date"><time></time></span>
@@ -139,6 +155,9 @@ var formatDetail = function() {
 	$('#creation-date').text($z.formatter.date.standard(${video.timestamp}));
 	$('#tags').html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", $z.util.arrayString2array('${video.tags}')));
 	$('#tags-level').html($z.link.getTagsAnchor("${pageContext.servletContext.contextPath}", $z.util.arrayString2array('${video.levels}')));
+	
+	$('.zaad-star-rating > input').val($z.util.normalizeRecommendarity(${video.recommendarity}));
+	$z.util.setStarRating($(".zaad-star-rating .fa"));
 };
 
 var listVideoByPlaylist = function(videoIndex) {
@@ -159,7 +178,9 @@ var listVideoByPlaylist = function(videoIndex) {
 				html += '	<div class="latest-video z-recent-video-sub-leading-item media">\n';
 				html += '		<div class="latest-video-inner">\n';
 				html += '			<div class="media-left z-recent-video-sub-img">\n';
-				html += '				<img src="' + $z.formatter.url.getVideoMqImgUrlById(data[i].videoId) + '" class="z-recent-video-image-sub">\n';
+				html += '				<a href="' + $z.link.getPVideoDetail('${pageContext.servletContext.contextPath}', data[i].playlistId, data[i].videoId) + '">\n';
+				html += '					<img src="' + $z.formatter.url.getVideoMqImgUrlById(data[i].videoId) + '" class="z-recent-video-image-sub">\n';
+				html += '               </a>\n';
 				html += '			</div>\n';
 				html += '			<div class="video-post-info media-body">\n';
 				html += '				<h5 class="">\n';
